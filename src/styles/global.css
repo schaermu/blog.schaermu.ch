@@ -55,7 +55,12 @@
   --color-accent-foreground: #2a1500;
   --color-code-bg: #1c1d21;
 
-  /* Pagefind Component UI dark mode CSS variable overrides */
+}
+
+/* Pagefind Component UI dark mode overrides.
+   Uses html[data-theme="dark"] (specificity 0,1,1) to beat Pagefind's
+   :root defaults (specificity 0,1,0) which load in a later stylesheet. */
+html[data-theme="dark"] {
   --pf-text: var(--color-text);
   --pf-text-secondary: var(--color-text-muted);
   --pf-text-muted: var(--color-text-muted);

@@ -1,13 +1,18 @@
 ---
-import '@pagefind/component-ui/css';
+if (!import.meta.env.DEV) {
+  await import('@pagefind/component-ui/css');
+}
 ---
 
-<pagefind-config bundle-path="/pagefind/"></pagefind-config>
-<pagefind-modal-trigger class="search-trigger" placeholder="Search..."></pagefind-modal-trigger>
-<pagefind-modal></pagefind-modal>
+{!import.meta.env.DEV && (
+  <pagefind-config bundle-path="/pagefind/"></pagefind-config>
+  <pagefind-modal-trigger class="search-trigger" placeholder="Search..."></pagefind-modal-trigger>
+)}
 
 <script>
-  import '@pagefind/component-ui';
+  if (!import.meta.env.DEV) {
+    import('@pagefind/component-ui');
+  }
 </script>
 
 <style is:global>
