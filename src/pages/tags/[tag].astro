@@ -21,14 +21,14 @@ const { posts, tag } = Astro.props;
 ---
 
 <BaseLayout title={`Posts tagged "${tag}"`} description={`All posts tagged with ${tag}`}>
-  <h1 class="text-3xl font-bold text-[var(--color-text)] mb-8">
+  <h1 class="text-3xl text-[var(--color-text)] mb-8">
     Posts tagged with <span class="text-[var(--color-accent)]">#{tag}</span>
   </h1>
   
   <div class="grid gap-8">
     {posts.map((post) => (
       <article class="flex flex-col bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6 shadow-sm hover:shadow-md transition-shadow">
-        <h2 class="text-2xl font-bold mb-2">
+        <h2 class="text-2xl mb-2">
           <a href={`/blog/${post.id}/`} class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
             {post.data.title}
           </a>

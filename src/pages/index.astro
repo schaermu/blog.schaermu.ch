@@ -12,7 +12,7 @@ const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
 ---
 
 <BaseLayout title="Blog" description="A minimal blog built with Astro">
-  <h1 class="text-3xl font-bold text-[var(--color-text)] mb-8">Latest Posts</h1>
+  <h1 class="text-3xl text-[var(--color-text)] mb-8">Latest Posts</h1>
   
   <div class="grid gap-8">
     {posts.map((post) => (
@@ -33,7 +33,7 @@ const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
         )}
         
         <div class="flex-grow flex flex-col justify-center">
-          <h2 class="text-2xl font-bold mb-2" transition:name={`post-title-${post.id}`}>
+          <h2 class="text-2xl mb-2" transition:name={`post-title-${post.id}`}>
             <a href={`/blog/${post.id}/`} class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
               {post.data.title}
             </a>

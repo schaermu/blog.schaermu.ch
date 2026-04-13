@@ -1,0 +1,4 @@
+BUILD: verification complete
+WOFF2: dist/_astro/dm-serif-display-latin-ext-400-normal.p18AlW_x.woff2
+WOFF2: dist/_astro/dm-serif-display-latin-400-normal.C5_t9oOD.woff2
+CSS: DM Serif Display present in dist/_astro/*.css

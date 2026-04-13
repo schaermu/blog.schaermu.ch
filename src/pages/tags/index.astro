@@ -7,7 +7,7 @@ const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))].sort((a
 ---
 
 <BaseLayout title="Tags" description="Browse posts by tag">
-  <h1 class="text-3xl font-bold text-[var(--color-text)] mb-8">Tags</h1>
+  <h1 class="text-3xl text-[var(--color-text)] mb-8">Tags</h1>
   
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     {tags.map((tag) => (
