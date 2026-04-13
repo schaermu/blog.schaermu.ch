@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#6366f1"/>
+  <circle cx="980" cy="120" r="90" fill="#a5b4fc" opacity="0.35"/>
+  <circle cx="190" cy="520" r="130" fill="#c7d2fe" opacity="0.2"/>
+  <text x="600" y="285" font-family="sans-serif" font-size="72" font-weight="700" fill="white" text-anchor="middle" dominant-baseline="middle">Welcome to My Blog</text>
+  <text x="600" y="372" font-family="sans-serif" font-size="34" fill="rgba(255,255,255,0.9)" text-anchor="middle">blog.schaermu.ch</text>
+</svg>
