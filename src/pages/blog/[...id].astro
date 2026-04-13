@@ -3,16 +3,40 @@ import { getCollection, render } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map(entry => ({
-    params: { id: entry.id },
-    props: { entry },
-  }));
+  const posts = await getCollection('blog', ({ data }) => {
+    return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
+  });
+  return posts.map(entry => {
+    const readingTime = Math.ceil(entry.body?.split(/\s+/).length / 200) || 1;
+
+    let seriesInfo = undefined;
+    if (entry.data.series) {
+      const seriesPosts = posts
+        .filter(p => p.data.series === entry.data.series)
+        .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+
+      const currentIndex = seriesPosts.findIndex(p => p.id === entry.id);
+      const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : undefined;
+      const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : undefined;
+
+      seriesInfo = {
+        name: entry.data.seriesTitle!,
+        current: entry.data.seriesOrder!,
+        total: seriesPosts.length,
+        prev: prevPost ? { title: prevPost.data.title, id: prevPost.id } : undefined,
+        next: nextPost ? { title: nextPost.data.title, id: nextPost.id } : undefined,
+      };
+    }
+
+    return {
+      params: { id: entry.id },
+      props: { entry, readingTime, seriesInfo },
+    };
+  });
 }
 
-const { entry } = Astro.props;
+const { entry, readingTime, seriesInfo } = Astro.props;
 const { Content } = await render(entry);
-const readingTime = Math.ceil(entry.body?.split(/\s+/).length / 200) || 1;
 ---
 
 <BlogPostLayout
@@ -24,6 +48,7 @@ const readingTime = Math.ceil(entry.body?.split(/\s+/).length / 200) || 1;
   tags={entry.data.tags}
   readingTime={readingTime}
   id={entry.id}
+  seriesInfo={seriesInfo}
 >
   <Content />
 </BlogPostLayout>

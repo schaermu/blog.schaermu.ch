@@ -2,7 +2,9 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const posts = await getCollection('blog');
+const posts = await getCollection('blog', ({ data }) => {
+  return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
+});
 const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))].sort((a, b) => a.localeCompare(b));
 ---
 

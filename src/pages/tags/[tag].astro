@@ -3,7 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('blog', ({ data }) => {
+    return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
+  });
   const tags = [...new Set(posts.flatMap(p => p.data.tags || []))];
   
   return tags.map(tag => ({
