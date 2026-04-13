@@ -63,7 +63,7 @@ const { title, description, image, ogType } = Astro.props;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url} />
-    <meta property="og:site_name" content="schaermu.ch" />
+    <meta property="og:site_name" content="blog.schaermu.ch" />
     <meta property="og:image" content={image ? new URL(image, Astro.site).href : new URL('/og-default.png', Astro.site).href} />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />

@@ -23,9 +23,11 @@ const getImageKey = (path: string) => path.replace('../../', '../');
   <article class="max-w-4xl mx-auto" transition:animate="slide">
     {heroImage && images[getImageKey(heroImage)] && (
       <div class="w-full mb-8 rounded-[var(--radius-lg)] overflow-hidden bg-[var(--color-surface)] shadow-sm">
-        <img 
-          src={images[getImageKey(heroImage)]?.default?.src} 
+        <Image 
+          src={images[getImageKey(heroImage)]!.default} 
           alt={title} 
+          width={900} 
+          height={400} 
           data-pagefind-meta="image[src]"
           class="w-full h-auto max-h-[400px] object-cover"
           transition:name={`post-hero-${id}`}
