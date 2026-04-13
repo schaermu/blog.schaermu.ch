@@ -59,7 +59,7 @@
 
 ## QA
 - Use `playwright-cli` skill ONLY: NOT playwright MCP, NOT @anthropic-ai/playwright-cli
-- Procedure: `.sisyphus/notepads/playwright-cli-procedure.md`
+- Procedure: `docs/playwright-cli-procedure.md`
 - Rules: Use `localhost` (NOT `127.0.0.1`), build before preview, detach with `setsid nohup mise exec --`
 
 ## Deploy
