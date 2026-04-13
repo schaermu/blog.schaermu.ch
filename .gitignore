@@ -23,3 +23,7 @@ pnpm-debug.log*
 
 # pagefind temp
 .pagefind/
+
+# agent working files
+.sisyphus/
+.playwright-cli/

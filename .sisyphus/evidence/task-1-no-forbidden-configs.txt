@@ -1,6 +1,0 @@
-Forbidden config check
-tailwind.config.js: NOT FOUND
-@astrojs/tailwind in package.json: NOT FOUND
-Pagefind dir: FOUND
-CNAME: blog.schaermu.ch
-
