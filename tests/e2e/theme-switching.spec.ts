@@ -62,7 +62,7 @@ test.describe('theme switching', () => {
   });
 
   test('theme toggle works on a blog post page', async ({ page }) => {
-    await page.goto('/blog/welcome-to-the-blog/');
+    await page.goto('/blog/e2e-fixture-with-hero/');
     await setTheme(page, 'light');
     await page.reload();
 
