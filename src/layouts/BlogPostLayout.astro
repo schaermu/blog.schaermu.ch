@@ -18,13 +18,14 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', 
 const getImageKey = (path: string) => path.replace('../../', '../');
 ---
 
-<BaseLayout title={title} description={description} image={heroImage}>
+<BaseLayout title={title} description={description} image={heroImage} ogType="article">
   <article class="max-w-4xl mx-auto">
     {heroImage && images[getImageKey(heroImage)] && (
       <div class="w-full mb-8 rounded-[var(--radius-lg)] overflow-hidden bg-[var(--color-surface)] shadow-sm">
         <img 
           src={images[getImageKey(heroImage)]?.default?.src} 
           alt={title} 
+          data-pagefind-meta="image[src]"
           class="w-full h-auto max-h-[400px] object-cover"
         />
       </div>
@@ -58,6 +59,7 @@ const getImageKey = (path: string) => path.replace('../../', '../');
           {tags.map((tag) => (
             <a 
               href={`/tags/${tag}/`}
+              data-pagefind-filter="tag"
               class="text-sm font-medium px-3 py-1 bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] rounded-[var(--radius-sm)] transition-colors"
             >
               #{tag}

@@ -1,8 +1,11 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import Search from './Search.astro';
+
+const headerAttrs = Astro.props;
 ---
 
-<header class="w-full border-b border-border bg-surface sticky top-0 z-50">
+<header {...headerAttrs} class="w-full border-b border-border bg-surface sticky top-0 z-50">
   <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
     <!-- Logo / Site Title -->
     <a href="/" class="text-xl font-bold text-text hover:text-accent transition-colors no-underline">
@@ -17,8 +20,7 @@ import ThemeToggle from './ThemeToggle.astro';
         <a href="/about/" class="hover:text-text transition-colors no-underline">About</a>
       </nav>
 
-      <!-- Search Placeholder -->
-      <div id="search-container" class="w-48 h-8"></div>
+      <Search />
 
       <!-- Theme Toggle -->
       <ThemeToggle />

@@ -1,0 +1,30 @@
+---
+import '@pagefind/component-ui/css';
+---
+
+<pagefind-config bundle-path="/pagefind/"></pagefind-config>
+<pagefind-modal-trigger class="search-trigger" placeholder="Search..."></pagefind-modal-trigger>
+<pagefind-modal></pagefind-modal>
+
+<script>
+  import '@pagefind/component-ui';
+</script>
+
+<style is:global>
+  pagefind-modal-trigger.search-trigger {
+    display: block;
+    width: 12rem;
+  }
+
+  @media (max-width: 768px) {
+    pagefind-modal-trigger.search-trigger {
+      width: 10rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    pagefind-modal-trigger.search-trigger {
+      width: 8rem;
+    }
+  }
+</style>
