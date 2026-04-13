@@ -20,6 +20,7 @@
   --color-accent: #b87333;
   --color-accent-hover: #9c6028;
   --color-accent-subtle: #f8ede0;
+  --color-accent-foreground: #2a1500;
   --color-code-bg: #f0eee9;
 
   /* Typography */
@@ -47,6 +48,7 @@
   --color-accent: #d4944a;
   --color-accent-hover: #e4a860;
   --color-accent-subtle: #2c2418;
+  --color-accent-foreground: #2a1500;
   --color-code-bg: #1c1d21;
 
   /* Pagefind Component UI dark mode CSS variable overrides */
@@ -70,40 +72,42 @@
 /* ============================================================
    BASE STYLES
    ============================================================ */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
 
-html {
-  font-family: var(--font-sans);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  html {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+  }
 
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
-  min-height: 100vh;
-  margin: 0;
-}
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+    min-height: 100vh;
+    margin: 0;
+  }
 
-a {
-  color: var(--color-accent);
-  transition: color 0.15s ease;
-}
+  a {
+    color: var(--color-accent);
+    transition: color 0.15s ease;
+  }
 
-a:hover {
-  color: var(--color-accent-hover);
-}
+  a:hover {
+    color: var(--color-accent-hover);
+  }
 
-code, pre {
-  font-family: var(--font-mono);
+  code, pre {
+    font-family: var(--font-mono);
+  }
 }
 
 /* ============================================================

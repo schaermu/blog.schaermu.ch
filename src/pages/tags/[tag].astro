@@ -51,7 +51,7 @@ const { posts, tag } = Astro.props;
                 href={`/tags/${t}/`}
                 class={`text-xs font-medium px-2.5 py-1 rounded-[var(--radius-sm)] transition-colors ${
                   t === tag 
-                    ? 'bg-[var(--color-accent)] text-[var(--color-bg)]' 
+                    ? 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)]' 
                     : 'bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)]'
                 }`}
               >
