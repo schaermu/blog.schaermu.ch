@@ -85,4 +85,19 @@ test.describe('blog post and series', () => {
     await expect(prevLink).toBeVisible();
     await expect(prevLink).toContainText('Previous');
   });
+
+  test('clicking a tag on a blog post navigates to the tag page', async ({ page }) => {
+    await page.goto('/blog/e2e-fixture-with-hero/');
+
+    const tagLink = page.locator('main a[href="/tags/e2e-testing/"]');
+    await expect(tagLink).toBeVisible();
+    await tagLink.click();
+
+    await expect(page).toHaveURL('/tags/e2e-testing/');
+
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Posts tagged with');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('#e2e-testing');
+
+    await expect(page.locator('a[href="/blog/e2e-fixture-with-hero/"]')).toBeVisible();
+  });
 });

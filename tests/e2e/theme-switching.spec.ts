@@ -75,4 +75,17 @@ test.describe('theme switching', () => {
     await toggle.click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
   });
+
+  test('theme persists across SPA navigation', async ({ page }) => {
+    await setTheme(page, 'dark');
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+
+    const firstPostLink = page.locator('article a[href^="/blog/"]').first();
+    await firstPostLink.click();
+
+    await expect(page).toHaveURL(/\/blog\//);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  });
 });
