@@ -8,13 +8,14 @@
 - Versions: `node = "24"`, `pnpm = "latest"`
 - MANDATORY: Prefix tool commands with `mise exec --` (e.g., `mise exec -- pnpm build`)
 - Access `npx`/`npm` via `mise exec -- npx ...`
-- No linter (eslint/prettier) or test framework (vitest/jest)
+- No linter (eslint/prettier); E2E tests via Playwright Test (`@playwright/test`)
 - TypeScript: strict mode (extends `astro/tsconfigs/strict`)
 
 ## Commands
 - Dev: `mise exec -- pnpm dev`
 - Build: `mise exec -- pnpm build` (runs `astro build && pagefind --site dist`)
 - Preview: `mise exec -- pnpm preview`
+- Test: `mise exec -- pnpm test:e2e` (runs Playwright Test specs against built site)
 - Constraint: Do NOT run build and preview concurrently
 
 ## Project Structure
@@ -28,6 +29,8 @@
 - `src/styles/global.css`: Global styles, theme variables, Tailwind
 - `public/og-default.png`: Default OG fallback image
 - `astro.config.mjs`: Astro config (site, static output, sharp, sitemap, tailwind vite plugin)
+- `playwright.config.ts`: Playwright Test config (desktop + mobile Chrome projects)
+- `tests/e2e/*.spec.ts`: E2E test specs (homepage, blog-post, theme, search)
 - `mise.toml`: mise tool versions
 - `.github/workflows/deploy.yml`: CI/CD (checkout@v5, withastro/action@v5, deploy-pages@v4)
 
@@ -58,9 +61,17 @@
 - Image service: Sharp (`astro/assets/services/sharp`), `limitInputPixels: false`
 
 ## QA
-- Use `playwright-cli` skill ONLY: NOT playwright MCP, NOT @anthropic-ai/playwright-cli
-- Procedure: `docs/playwright-cli-procedure.md`
-- Rules: Use `localhost` (NOT `127.0.0.1`), build before preview, detach with `setsid nohup mise exec --`
+- Manual verification: Use `playwright-cli` skill ONLY (NOT playwright MCP, NOT @anthropic-ai/playwright-cli)
+- Manual procedure: `docs/playwright-cli-procedure.md`
+- Manual rules: Use `localhost` (NOT `127.0.0.1`), build before preview, detach with `setsid nohup mise exec --`
+- E2E test suite: Playwright Test specs in `tests/e2e/`
+- Run tests: `mise exec -- pnpm test:e2e`
+- MANDATORY workflow after implementing any UI change:
+  1. Verify manually with `playwright-cli` (per procedure doc)
+  2. Add/extend a Playwright Test spec in `tests/e2e/` to codify the verification
+  3. Run `mise exec -- pnpm test:e2e` to confirm all specs pass
+- Spec organization: one file per domain (homepage, blog-post, theme, search)
+- Create new spec files for new feature domains
 
 ## Deploy
 - GitHub Pages via GitHub Actions on push to `main`

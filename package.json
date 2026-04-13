@@ -7,6 +7,8 @@
     "start": "astro dev",
     "build": "astro build && pagefind --site dist",
     "preview": "pnpm build && astro preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "astro": "astro"
   },
   "dependencies": {
@@ -17,9 +19,11 @@
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "pagefind": "^1.5.2"
   }
 }

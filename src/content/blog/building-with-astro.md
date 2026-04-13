@@ -3,6 +3,9 @@ title: "Building a Static Blog with Astro Content Collections"
 description: "A practical look at Astro's content model, how to organize posts, and why type-safe Markdown is a great fit for blogs."
 pubDate: 2026-02-03
 tags: ["astro", "typescript", "tutorial"]
+series: "building-blog-astro"
+seriesOrder: 2
+seriesTitle: "Building a Blog with Astro"
 ---
 
 Astro Content Collections make a blog feel organized from day one. Instead of treating Markdown as loose files, you define a structure for posts and let the framework validate it for you.

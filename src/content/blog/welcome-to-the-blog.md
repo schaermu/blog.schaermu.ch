@@ -4,6 +4,9 @@ description: "An introduction to this blog built with Astro, Tailwind CSS, and a
 pubDate: 2026-01-15
 heroImage: "../../assets/blog/hero-welcome.svg"
 tags: ["blogging", "astro", "web-dev"]
+series: "building-blog-astro"
+seriesOrder: 1
+seriesTitle: "Building a Blog with Astro"
 ---
 
 Welcome! I finally set up the blog I kept putting off for months. I wanted something lightweight, easy to maintain, and pleasant to write in, so Astro felt like the right fit.

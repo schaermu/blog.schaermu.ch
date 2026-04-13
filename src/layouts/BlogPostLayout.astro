@@ -1,6 +1,9 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import { Image } from 'astro:assets';
+import SeriesBadge from '../components/SeriesBadge.astro';
+import SeriesNav from '../components/SeriesNav.astro';
+import SeriesTopNav from '../components/SeriesTopNav.astro';
 
 interface Props {
   title: string;
@@ -11,9 +14,16 @@ interface Props {
   tags: string[];
   readingTime: number;
   id: string;
+  seriesInfo?: {
+    name: string;
+    current: number;
+    total: number;
+    prev?: { title: string; id: string };
+    next?: { title: string; id: string };
+  };
 }
 
-const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, id } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, id, seriesInfo } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', { eager: true });
 const getImageKey = (path: string) => path.replace('../../', '../');
@@ -35,6 +45,16 @@ const getImageKey = (path: string) => path.replace('../../', '../');
       </div>
     )}
     
+    {seriesInfo && (
+      <SeriesTopNav
+        name={seriesInfo.name}
+        current={seriesInfo.current}
+        total={seriesInfo.total}
+        prev={seriesInfo.prev}
+        next={seriesInfo.next}
+      />
+    )}
+
     <header class="mb-10 text-center md:text-left">
       <h1 class="text-4xl md:text-5xl text-[var(--color-text)] mb-4 leading-tight" transition:name={`post-title-${id}`}>
         {title}
@@ -57,6 +77,10 @@ const getImageKey = (path: string) => path.replace('../../', '../');
         <span>&bull;</span>
         <span>{readingTime} min read</span>
       </div>
+
+      {seriesInfo && (
+        <SeriesBadge name={seriesInfo.name} current={seriesInfo.current} total={seriesInfo.total} />
+      )}
       
       {tags && tags.length > 0 && (
         <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
@@ -76,5 +100,15 @@ const getImageKey = (path: string) => path.replace('../../', '../');
     <div class="prose dark:prose-invert max-w-none prose-a:text-[var(--color-accent)] hover:prose-a:text-[var(--color-accent-hover)] prose-img:rounded-[var(--radius-md)] prose-headings:text-[var(--color-text)]">
       <slot />
     </div>
+
+    {seriesInfo && (
+      <SeriesNav
+        name={seriesInfo.name}
+        current={seriesInfo.current}
+        total={seriesInfo.total}
+        prev={seriesInfo.prev}
+        next={seriesInfo.next}
+      />
+    )}
   </article>
 </BaseLayout>

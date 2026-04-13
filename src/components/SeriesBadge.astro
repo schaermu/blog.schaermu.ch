@@ -1,0 +1,18 @@
+---
+interface Props {
+  name: string;
+  current: number;
+  total: number;
+}
+
+const { name, current, total } = Astro.props;
+---
+
+<div class="flex flex-wrap items-center justify-center md:justify-start gap-2 text-[var(--color-text-muted)] text-sm mb-6">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a2.5 2.5 0 0 1 0-5H20" />
+  </svg>
+  <span>Part {current} of {total}</span>
+  <span>&bull;</span>
+  <span class="text-[var(--color-accent)] font-medium">{name}</span>
+</div>

@@ -142,6 +142,36 @@ sleep 1
 lsof -i :4321 2>/dev/null && echo "WARNING: port 4321 still in use" || echo "Cleanup complete"
 ```
 
+## Phase 7: Codify as Playwright Test Spec
+
+- **Purpose**: After manually verifying behavior with playwright-cli, the agent MUST add or extend a Playwright Test spec to make that check a permanent regression test.
+- **When to add specs**: After using playwright-cli to verify any new feature, bug fix, or UI change.
+- **Where specs live**: `tests/e2e/` directory, organized by domain:
+  - `homepage-and-navigation.spec.ts` — homepage, header, hamburger menu, footer, responsive layout
+  - `blog-post-and-series.spec.ts` — blog post pages, series badge, series nav, prev/next
+  - `theme-switching.spec.ts` — dark/light mode toggle, CSS variable inheritance
+  - `search.spec.ts` — Pagefind search modal, light/dark styling
+  - Create new spec files for new feature domains
+- **How to write specs**: Use `@playwright/test`, follow existing spec patterns:
+  ```typescript
+  import { test, expect } from '@playwright/test';
+  
+  test.describe('Feature Name', () => {
+    test('specific behavior', async ({ page, isMobile }) => {
+      await page.goto('/path/');
+      await expect(page.locator('selector')).toBeVisible();
+    });
+  });
+  ```
+- **Running specs**: `mise exec -- pnpm test:e2e` (runs all specs against built site)
+- **Key rules**:
+  - Use relative URLs (baseURL is configured)
+  - Use `isMobile` parameter for responsive tests (config has desktop and mobile projects)
+  - Do NOT use `page.waitForTimeout()` — use auto-waiting assertions
+  - Do NOT hardcode viewport sizes — the config projects handle this
+  - Do NOT use `data-testid` — use semantic selectors (aria-label, IDs, element types)
+- **Workflow**: manual playwright-cli verification → write/extend spec → run `mise exec -- pnpm test:e2e` → confirm spec passes
+
 ## Quick Reference (copy-paste block)
 
 For agents that want the minimal reliable sequence:

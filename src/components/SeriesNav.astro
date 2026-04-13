@@ -1,0 +1,55 @@
+---
+interface Props {
+  name: string;
+  current: number;
+  total: number;
+  prev?: { title: string; id: string };
+  next?: { title: string; id: string };
+}
+
+const { name, current, total, prev, next } = Astro.props;
+---
+
+<nav aria-label="Series navigation" class="mt-12 pt-8 border-t border-[var(--color-border)]">
+  <div class="text-center mb-6">
+    <span class="text-[var(--color-text-muted)] text-sm">
+      <span class="text-[var(--color-accent)] font-medium">{name}</span>
+      &mdash; Part {current} of {total}
+    </span>
+    <div class="mt-2 mx-auto max-w-xs h-1 bg-[var(--color-bg-subtle)] rounded-full overflow-hidden">
+      <div
+        class="h-full bg-[var(--color-accent)] rounded-full transition-all"
+        style={`width: ${(current / total) * 100}%`}
+      />
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {prev ? (
+      <a
+        href={`/blog/${prev.id}/`}
+        class="group block bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-4 shadow-sm hover:shadow-md transition-shadow no-underline"
+      >
+        <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">&larr; Previous</span>
+        <span class="block mt-1 text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors font-medium">
+          {prev.title}
+        </span>
+      </a>
+    ) : (
+      <div />
+    )}
+    {next ? (
+      <a
+        href={`/blog/${next.id}/`}
+        class="group block bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-4 shadow-sm hover:shadow-md transition-shadow no-underline text-right"
+      >
+        <span class="text-xs text-[var(--color-text-muted)] uppercase tracking-wide">Next &rarr;</span>
+        <span class="block mt-1 text-[var(--color-text)] group-hover:text-[var(--color-accent)] transition-colors font-medium">
+          {next.title}
+        </span>
+      </a>
+    ) : (
+      <div />
+    )}
+  </div>
+</nav>
