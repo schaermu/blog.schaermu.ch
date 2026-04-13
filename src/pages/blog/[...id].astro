@@ -23,6 +23,7 @@ const readingTime = Math.ceil(entry.body?.split(/\s+/).length / 200) || 1;
   heroImage={entry.data.heroImage}
   tags={entry.data.tags}
   readingTime={readingTime}
+  id={entry.id}
 >
   <Content />
 </BlogPostLayout>

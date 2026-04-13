@@ -25,13 +25,14 @@ const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
                 width={400} 
                 height={225} 
                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                transition:name={`post-hero-${post.id}`}
               />
             </a>
           </div>
         )}
         
         <div class="flex-grow flex flex-col justify-center">
-          <h2 class="text-2xl font-bold mb-2">
+          <h2 class="text-2xl font-bold mb-2" transition:name={`post-title-${post.id}`}>
             <a href={`/blog/${post.id}/`} class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
               {post.data.title}
             </a>

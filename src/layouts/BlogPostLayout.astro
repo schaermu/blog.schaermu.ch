@@ -10,16 +10,17 @@ interface Props {
   heroImage?: string;
   tags: string[];
   readingTime: number;
+  id: string;
 }
 
-const { title, description, pubDate, updatedDate, heroImage, tags, readingTime } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, id } = Astro.props;
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', { eager: true });
 const getImageKey = (path: string) => path.replace('../../', '../');
 ---
 
 <BaseLayout title={title} description={description} image={heroImage} ogType="article">
-  <article class="max-w-4xl mx-auto">
+  <article class="max-w-4xl mx-auto" transition:animate="slide">
     {heroImage && images[getImageKey(heroImage)] && (
       <div class="w-full mb-8 rounded-[var(--radius-lg)] overflow-hidden bg-[var(--color-surface)] shadow-sm">
         <img 
@@ -27,12 +28,13 @@ const getImageKey = (path: string) => path.replace('../../', '../');
           alt={title} 
           data-pagefind-meta="image[src]"
           class="w-full h-auto max-h-[400px] object-cover"
+          transition:name={`post-hero-${id}`}
         />
       </div>
     )}
     
     <header class="mb-10 text-center md:text-left">
-      <h1 class="text-4xl md:text-5xl font-bold text-[var(--color-text)] mb-4 leading-tight">
+      <h1 class="text-4xl md:text-5xl font-bold text-[var(--color-text)] mb-4 leading-tight" transition:name={`post-title-${id}`}>
         {title}
       </h1>
       

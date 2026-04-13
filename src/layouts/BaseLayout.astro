@@ -77,7 +77,7 @@ const { title, description, image, ogType } = Astro.props;
   </head>
   <body class="flex flex-col min-h-screen">
     <Header data-pagefind-ignore />
-    <main data-pagefind-body class="flex-grow w-full max-w-4xl mx-auto px-4 py-8">
+    <main data-pagefind-body class="flex-grow w-full max-w-4xl mx-auto px-4 py-8" transition:animate="fade">
       <slot />
     </main>
     <Footer data-pagefind-ignore />
