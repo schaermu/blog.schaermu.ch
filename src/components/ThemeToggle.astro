@@ -1,0 +1,84 @@
+---
+---
+
+<button
+  id="theme-toggle"
+  class="theme-toggle flex items-center justify-center p-2 rounded-md hover:bg-bg-subtle text-text-muted hover:text-text transition-colors"
+  aria-label="Toggle theme"
+  transition:persist
+>
+  <!-- Sun icon (shown in dark mode) -->
+  <svg
+    class="sun-icon w-5 h-5"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+
+  <!-- Moon icon (shown in light mode) -->
+  <svg
+    class="moon-icon w-5 h-5"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+</button>
+
+<style is:global>
+  .sun-icon {
+    display: none;
+  }
+  .moon-icon {
+    display: block;
+  }
+  [data-theme="dark"] .sun-icon {
+    display: block;
+  }
+  [data-theme="dark"] .moon-icon {
+    display: none;
+  }
+</style>
+
+<script>
+  function setupThemeToggle() {
+    const toggleButton = document.getElementById('theme-toggle');
+    if (!toggleButton) return;
+
+    if (toggleButton.dataset.listenerAttached === 'true') return;
+    toggleButton.dataset.listenerAttached = 'true';
+
+    toggleButton.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+
+  // Setup on initial load
+  setupThemeToggle();
+
+  // Setup on Astro view transitions
+  document.addEventListener('astro:page-load', setupThemeToggle);
+</script>

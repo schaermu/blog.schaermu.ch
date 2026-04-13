@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="About" 
+  description="About schaermu.ch and its author"
+>
+  <div class="prose max-w-none">
+    <h1>About</h1>
+    <div class="flex flex-col md:flex-row gap-8 items-start">
+      <div class="flex-shrink-0 w-32 h-32 rounded-xl bg-accent/10 dark:bg-accent-subtle border border-border flex items-center justify-center text-4xl font-bold text-accent shadow-sm">
+        SC
+      </div>
+      <div class="flex-1">
+        <p>
+          Hello! I'm a passionate software engineer and web developer with a keen interest in modern web technologies. Welcome to <strong>schaermu.ch</strong>, my digital garden where I share my thoughts, learnings, and experiments in software development.
+        </p>
+        <p>
+          Throughout my career, I've worked across various parts of the stack, from crafting pixel-perfect user interfaces to designing robust backend systems. Currently, I'm particularly interested in static site generators, edge computing, and finding the perfect balance between performance and developer experience.
+        </p>
+        <p>
+          When I'm not writing code, you can usually find me reading about tech trends, tinkering with new frameworks like Astro and Tailwind CSS, or exploring the outdoors. This blog serves as both a public notebook for my technical journey and a way to connect with other developers in the community.
+        </p>
+        <p>
+          Thanks for dropping by! Feel free to explore the posts, and I hope you find something useful or inspiring.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+
+<header class="w-full border-b border-border bg-surface sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+    <!-- Logo / Site Title -->
+    <a href="/" class="text-xl font-bold text-text hover:text-accent transition-colors no-underline">
+      schaermu.ch
+    </a>
+
+    <div class="flex items-center gap-6">
+      <!-- Navigation -->
+      <nav class="flex items-center gap-4 text-text-muted font-medium">
+        <a href="/" class="hover:text-text transition-colors no-underline">Blog</a>
+        <a href="/tags/" class="hover:text-text transition-colors no-underline">Tags</a>
+        <a href="/about/" class="hover:text-text transition-colors no-underline">About</a>
+      </nav>
+
+      <!-- Search Placeholder -->
+      <div id="search-container" class="w-48 h-8"></div>
+
+      <!-- Theme Toggle -->
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
