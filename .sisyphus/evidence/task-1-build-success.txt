@@ -1,0 +1,51 @@
+BUILD SUCCESS
+
+
+> blog-schaermu-ch@0.0.1 build /home/schaermu/projects/blog.schaermu.ch
+> astro build && pagefind --site dist
+
+05:09:53 [content] Syncing content
+05:09:53 [content] Synced content
+05:09:53 [types] Generated 35ms
+05:09:53 [build] output: "static"
+05:09:53 [build] mode: "static"
+05:09:53 [build] directory: /home/schaermu/projects/blog.schaermu.ch/dist/
+05:09:53 [build] Collecting build info...
+05:09:53 [build] ✓ Completed in 67ms.
+05:09:53 [build] Building static entrypoints...
+05:09:54 [vite] ✓ built in 709ms
+05:09:54 [build] ✓ Completed in 751ms.
+
+ generating static routes 
+05:09:54 ▶ src/pages/index.astro
+05:09:54   └─ /index.html (+14ms) 
+05:09:54 ✓ Completed in 27ms.
+
+05:09:54 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+05:09:54 [build] 1 page(s) built in 864ms
+05:09:54 [build] Complete!
+
+Running Pagefind v1.5.2 (Extended)
+Running from: "/home/schaermu/projects/blog.schaermu.ch"
+Source:       "dist"
+Output:       "dist/pagefind"
+
+[Walking source directory]
+Found 1 file matching **/*.{html}
+
+[Parsing files]
+Did not find a data-pagefind-body element on the site.
+↳ Indexing all <body> elements on the site.
+
+[Reading languages]
+Discovered 1 language: unknown
+
+[Building search indexes]
+Total: 
+  Indexed 1 language
+  Indexed 1 page
+  Indexed 1 word
+  Indexed 0 filters
+  Indexed 0 sorts
+
+Finished in 0.013 seconds
