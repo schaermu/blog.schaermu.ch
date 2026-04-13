@@ -20,13 +20,17 @@
   --color-accent: #b87333;
   --color-accent-hover: #9c6028;
   --color-accent-subtle: #f8ede0;
-  --color-accent-foreground: #2a1500;
+  --color-accent-foreground: #f8ede0;
   --color-code-bg: #f0eee9;
 
   /* Typography */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: "DM Serif Display", Georgia, "Times New Roman", serif;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
+    monospace;
 
   /* Border Radius */
   --radius-sm: 0.25rem;
@@ -73,7 +77,9 @@
    BASE STYLES
    ============================================================ */
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
@@ -84,14 +90,22 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
   }
 
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease;
     min-height: 100vh;
     margin: 0;
   }
@@ -105,7 +119,8 @@
     color: var(--color-accent-hover);
   }
 
-  code, pre {
+  code,
+  pre {
     font-family: var(--font-mono);
   }
 }
