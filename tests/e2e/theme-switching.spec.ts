@@ -57,8 +57,10 @@ test.describe('theme switching', () => {
     await page.locator('#theme-toggle').click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
-    const darkBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
-    expect(darkBackground).not.toBe(lightBackground);
+    // Poll until the CSS transition (0.15s) completes and the background actually changes
+    await expect.poll(
+      () => page.evaluate(() => getComputedStyle(document.body).backgroundColor),
+    ).not.toBe(lightBackground);
   });
 
   test('theme toggle works on a blog post page', async ({ page }) => {

@@ -79,6 +79,17 @@ html[data-theme="dark"] {
 }
 
 /* ============================================================
+   UTILITY: FULL-BLEED
+   Breaks out of any max-width parent to span the full viewport.
+   ============================================================ */
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+
+/* ============================================================
    BASE STYLES
    ============================================================ */
 @layer base {

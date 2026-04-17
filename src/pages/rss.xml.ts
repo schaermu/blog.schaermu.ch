@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
   const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   return rss({
     title: 'schaermu.ch',
-    description: 'A minimal blog built with Astro',
+    description: 'Ein Blog über Software-Entwicklung und Technologie',
     site: context.site!,
     items: sorted.map((post) => ({
       title: post.data.title,

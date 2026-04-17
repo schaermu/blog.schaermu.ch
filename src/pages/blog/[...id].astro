@@ -15,17 +15,19 @@ export async function getStaticPaths() {
         .filter(p => p.data.series === entry.data.series)
         .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 
-      const currentIndex = seriesPosts.findIndex(p => p.id === entry.id);
-      const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : undefined;
-      const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : undefined;
+      if (seriesPosts.length > 1) {
+        const currentIndex = seriesPosts.findIndex(p => p.id === entry.id);
+        const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : undefined;
+        const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : undefined;
 
-      seriesInfo = {
-        name: entry.data.seriesTitle!,
-        current: entry.data.seriesOrder!,
-        total: seriesPosts.length,
-        prev: prevPost ? { title: prevPost.data.title, id: prevPost.id } : undefined,
-        next: nextPost ? { title: nextPost.data.title, id: nextPost.id } : undefined,
-      };
+        seriesInfo = {
+          name: entry.data.seriesTitle!,
+          current: entry.data.seriesOrder!,
+          total: seriesPosts.length,
+          prev: prevPost ? { title: prevPost.data.title, id: prevPost.id } : undefined,
+          next: nextPost ? { title: nextPost.data.title, id: nextPost.id } : undefined,
+        };
+      }
     }
 
     return {

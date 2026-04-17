@@ -46,7 +46,7 @@ test.describe('search', () => {
     await trigger.click();
     await expect(page.locator('pagefind-modal dialog.pf-modal')).toBeVisible();
 
-    const searchInput = page.getByRole('searchbox', { name: 'Search this site' });
+    const searchInput = page.getByRole('searchbox', { name: 'Suche' });
     await expect(searchInput).toBeVisible();
     await searchInput.fill('Fixture');
 
@@ -64,7 +64,7 @@ test.describe('search', () => {
     await trigger.click();
     await expect(page.locator('pagefind-modal dialog.pf-modal')).toBeVisible();
 
-    const searchInput = page.getByRole('searchbox', { name: 'Search this site' });
+    const searchInput = page.getByRole('searchbox', { name: 'Suche' });
     await searchInput.fill('Fixture');
 
     const results = page.locator('pagefind-modal dialog.pf-modal a[href*="/blog/"]');

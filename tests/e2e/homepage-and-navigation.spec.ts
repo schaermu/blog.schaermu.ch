@@ -7,7 +7,7 @@ test.describe('homepage and navigation', () => {
 
   test('homepage renders latest posts and post cards', async ({ page }) => {
     await expect(page).toHaveTitle(/Blog \| schaermu\.ch/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Latest Posts' })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: 'Neueste Beiträge' })).toBeVisible();
 
     const postCards = page.locator('article');
     await expect(postCards.first()).toBeVisible();
@@ -23,7 +23,7 @@ test.describe('homepage and navigation', () => {
       await expect(titleLink).toBeVisible();
       expect(href).toMatch(/^\/blog\/[\w-]+\/$/);
       await expect(card.locator('time').first()).toBeVisible();
-      await expect(card.getByText(/\d+\s+min read/i)).toBeVisible();
+      await expect(card.getByText(/\d+\s+Min\.\s+Lesezeit/i)).toBeVisible();
       await expect(card.locator('a[href^="/tags/"]').first()).toBeVisible();
     }
   });
@@ -32,7 +32,7 @@ test.describe('homepage and navigation', () => {
     test.skip(isMobile);
 
     const desktopNavLinks = page.locator('header .hidden.md\\:flex nav a');
-    await expect(desktopNavLinks).toHaveText(['Blog', 'Tags', 'About']);
+    await expect(desktopNavLinks).toHaveText(['Blog', 'Tags', 'Über mich']);
     await expect(page.locator('#mobile-menu-btn')).toBeHidden();
   });
 
@@ -46,7 +46,7 @@ test.describe('homepage and navigation', () => {
     await expect(menuButton).toBeVisible();
     await menuButton.click();
     await expect(mobileMenu).toHaveAttribute('data-open', 'true');
-    await expect(mobileNavLinks).toHaveText(['Blog', 'Tags', 'About']);
+    await expect(mobileNavLinks).toHaveText(['Blog', 'Tags', 'Über mich']);
 
     await mobileMenu.getByRole('link', { name: 'Tags' }).click();
     await expect(page).toHaveURL('/tags/');
@@ -85,6 +85,6 @@ test.describe('homepage and navigation', () => {
 
     await page.goto('/about/');
     await expect(page).toHaveURL('/about/');
-    await expect(page.getByRole('heading', { level: 1, name: /about/i })).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /über mich/i })).toBeVisible();
   });
 });

@@ -19,7 +19,7 @@ test.describe('tags', () => {
     await page.goto('/tags/e2e-astro/');
 
     const h1 = page.getByRole('heading', { level: 1 });
-    await expect(h1).toContainText('Posts tagged with');
+    await expect(h1).toContainText('Beiträge mit Tag');
     await expect(h1).toContainText('#e2e-astro');
 
     await expect(page.locator('a[href="/blog/e2e-fixture-with-hero/"]')).toBeVisible();

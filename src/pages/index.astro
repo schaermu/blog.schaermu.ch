@@ -13,8 +13,8 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', 
 const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
 ---
 
-<BaseLayout title="Blog" description="A minimal blog built with Astro">
-  <h1 class="text-5xl text-[var(--color-text)] mb-8">Latest Posts</h1>
+<BaseLayout title="Blog" description="Ein Blog über Software-Entwicklung und Technologie">
+  <h1 class="text-5xl text-[var(--color-text)] mb-8">Neueste Beiträge</h1>
   
   <div class="grid gap-8">
     {posts.map((post) => (
@@ -43,10 +43,10 @@ const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
           
           <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[var(--color-text-muted)] mb-4">
             <time datetime={post.data.pubDate.toISOString()}>
-              {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+               {post.data.pubDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}
             </time>
             <span>&bull;</span>
-            <span>{Math.ceil(post.body?.split(/\s+/).length / 200) || 1} min read</span>
+            <span>{Math.ceil(post.body?.split(/\s+/).length / 200) || 1} Min. Lesezeit</span>
           </div>
           
           <p class="text-[var(--color-text)] mb-4 flex-grow line-clamp-3">

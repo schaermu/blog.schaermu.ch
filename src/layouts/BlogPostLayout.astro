@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import SeriesBadge from '../components/SeriesBadge.astro';
 import SeriesNav from '../components/SeriesNav.astro';
 import SeriesTopNav from '../components/SeriesTopNav.astro';
+import ShareButtons from '../components/ShareButtons.astro';
 
 interface Props {
   title: string;
@@ -29,21 +30,21 @@ const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', 
 const getImageKey = (path: string) => path.replace('../../', '../');
 ---
 
-<BaseLayout title={title} description={description} image={heroImage} ogType="article">
+<BaseLayout title={title} description={description} image={heroImage} ogType="article" flushTop={!!heroImage}>
+  {heroImage && images[getImageKey(heroImage)] && (
+    <div class="full-bleed mb-8 overflow-hidden">
+      <Image 
+        src={images[getImageKey(heroImage)]!.default} 
+        alt={title} 
+        width={1920} 
+        height={400} 
+        data-pagefind-meta="image[src]"
+        class="w-full h-auto max-h-[400px] object-cover"
+        transition:name={`post-hero-${id}`}
+      />
+    </div>
+  )}
   <article class="max-w-4xl mx-auto" transition:animate="slide">
-    {heroImage && images[getImageKey(heroImage)] && (
-      <div class="w-full mb-8 rounded-[var(--radius-lg)] overflow-hidden bg-[var(--color-surface)] shadow-sm">
-        <Image 
-          src={images[getImageKey(heroImage)]!.default} 
-          alt={title} 
-          width={900} 
-          height={400} 
-          data-pagefind-meta="image[src]"
-          class="w-full h-auto max-h-[400px] object-cover"
-          transition:name={`post-hero-${id}`}
-        />
-      </div>
-    )}
     
     {seriesInfo && (
       <SeriesTopNav
@@ -62,20 +63,20 @@ const getImageKey = (path: string) => path.replace('../../', '../');
       
       <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[var(--color-text-muted)] text-sm mb-6">
         <time datetime={pubDate.toISOString()}>
-          {pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {pubDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}
         </time>
         
         {updatedDate && (
           <>
             <span>&bull;</span>
             <span class="italic">
-              Updated: <time datetime={updatedDate.toISOString()}>{updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+              Aktualisiert: <time datetime={updatedDate.toISOString()}>{updatedDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
             </span>
           </>
         )}
         
         <span>&bull;</span>
-        <span>{readingTime} min read</span>
+        <span>{readingTime} Min. Lesezeit</span>
       </div>
 
       {seriesInfo && (
@@ -100,6 +101,8 @@ const getImageKey = (path: string) => path.replace('../../', '../');
     <div class="prose dark:prose-invert max-w-none prose-a:text-[var(--color-accent)] hover:prose-a:text-[var(--color-accent-hover)] prose-img:rounded-[var(--radius-md)] prose-headings:text-[var(--color-text)]">
       <slot />
     </div>
+
+    <ShareButtons title={title} url={new URL(`/blog/${id}/`, Astro.site).href} />
 
     {seriesInfo && (
       <SeriesNav

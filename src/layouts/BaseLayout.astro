@@ -10,13 +10,14 @@ interface Props {
   description: string;
   image?: string;
   ogType?: string;
+  flushTop?: boolean;
 }
 
-const { title, description, image, ogType } = Astro.props;
+const { title, description, image, ogType, flushTop } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -78,7 +79,7 @@ const { title, description, image, ogType } = Astro.props;
   </head>
   <body class="flex flex-col min-h-screen">
     <Header data-pagefind-ignore />
-    <main data-pagefind-body class="flex-grow w-full max-w-4xl mx-auto px-4 py-8" transition:animate="fade">
+    <main data-pagefind-body class:list={["flex-grow w-full max-w-4xl mx-auto px-4 pb-8", flushTop ? "pt-0" : "pt-8"]} transition:animate="fade">
       <slot />
     </main>
     <Footer data-pagefind-ignore />
