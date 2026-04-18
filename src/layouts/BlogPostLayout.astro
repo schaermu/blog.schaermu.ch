@@ -28,10 +28,24 @@ const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, 
 
 const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', { eager: true });
 const getImageKey = (path: string) => path.replace('../../', '../');
+const isAbsoluteUrl = heroImage?.startsWith('http');
 ---
 
 <BaseLayout title={title} description={description} image={heroImage} ogType="article" flushTop={!!heroImage}>
-  {heroImage && images[getImageKey(heroImage)] && (
+  {heroImage && isAbsoluteUrl && (
+    <div class="full-bleed mb-8 overflow-hidden">
+      <img
+        src={heroImage}
+        alt={title}
+        width={1920}
+        height={400}
+        data-pagefind-meta="image[src]"
+        class="w-full h-auto max-h-[400px] object-cover"
+        transition:name={`post-hero-${id}`}
+      />
+    </div>
+  )}
+  {heroImage && !isAbsoluteUrl && images[getImageKey(heroImage)] && (
     <div class="full-bleed mb-8 overflow-hidden">
       <Image 
         src={images[getImageKey(heroImage)]!.default} 

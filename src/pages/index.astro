@@ -19,7 +19,21 @@ const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
   <div class="grid gap-8">
     {posts.map((post) => (
       <article class="flex flex-col md:flex-row gap-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6 shadow-sm hover:shadow-md transition-shadow">
-        {post.data.heroImage && images[getImageKey(post.data.heroImage)] && (
+        {post.data.heroImage && post.data.heroImage.startsWith('http') && (
+          <div class="w-full md:w-1/3 shrink-0">
+            <a href={`/blog/${post.id}/`} class="block overflow-hidden rounded-[var(--radius-md)] h-full">
+              <img
+                src={post.data.heroImage}
+                alt={post.data.title}
+                width={400}
+                height={225}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                transition:name={`post-hero-${post.id}`}
+              />
+            </a>
+          </div>
+        )}
+        {post.data.heroImage && !post.data.heroImage.startsWith('http') && images[getImageKey(post.data.heroImage)] && (
           <div class="w-full md:w-1/3 shrink-0">
             <a href={`/blog/${post.id}/`} class="block overflow-hidden rounded-[var(--radius-md)] h-full">
               <Image 
