@@ -1,0 +1,30 @@
+pre-commit:
+  commands:
+    prettier:
+      glob: '*.{astro,css,js,json,md,mjs,ts,yaml,yml}'
+      run: mise exec -- pnpm exec prettier --write {staged_files}
+      stage_fixed: true
+    oxlint:
+      glob: '*.{js,mjs,ts}'
+      run: mise exec -- oxlint --fix --deny-warnings {staged_files}
+      stage_fixed: true
+    markdownlint:
+      glob: '*.md'
+      run: mise exec -- markdownlint-cli2 --fix --no-globs {staged_files}
+      stage_fixed: true
+    actionlint:
+      glob: '.github/workflows/*.{yml,yaml}'
+      run: mise exec -- pnpm run lint:actions
+
+pre-push:
+  commands:
+    actionlint:
+      run: mise exec -- pnpm run lint:actions
+    markdownlint:
+      run: mise exec -- pnpm run lint:markdown
+    code-quality:
+      run: mise exec -- pnpm run check:code
+    typecheck:
+      run: mise exec -- pnpm run typecheck
+    e2e:
+      run: mise exec -- pnpm test:e2e
