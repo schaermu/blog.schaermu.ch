@@ -1,0 +1,27 @@
+name: Renovate
+on:
+  schedule:
+    - cron: '0 * * * *'
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token
+        id: get_token
+        uses: actions/create-github-app-token@v1
+        with:
+          private-key: ${{ secrets.RENOVATEBOT_PRIVATE_KEY }}
+          app-id: ${{ secrets.RENOVATEBOT_APP_ID }}
+          owner: ${{ github.repository_owner }}
+          repositories: 'blog.schaermu.ch'
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v46.1.9
+        with:
+          configurationFile: renovate.json
+          token: '${{ steps.get_token.outputs.token }}'
+        env:
+          RENOVATE_PLATFORM_COMMIT: 'true'

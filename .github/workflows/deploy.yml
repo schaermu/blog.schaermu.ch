@@ -39,6 +39,8 @@ jobs:
         run: mise exec -- pnpm install --frozen-lockfile
 
       - name: Build site
+        env:
+          PUBLIC_ENABLE_UMAMI: 'true'
         run: mise exec -- pnpm build
 
       - name: Upload Pages artifact
