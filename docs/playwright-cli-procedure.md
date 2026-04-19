@@ -6,6 +6,7 @@
 ## Why This Document Exists
 
 Agent-driven playwright-cli runs have historically failed due to four root causes:
+
 1. **Server dies when bash session closes** — the Astro preview/dev server is started as a child of a bash call; when the agent issues the next bash command, the previous session ends and the server receives SIGHUP.
 2. **Port conflicts from zombie processes** — crashed servers don't release port 4321; the next server binds to 4322, but playwright-cli still targets 4321.
 3. **Race condition** — the agent navigates before the server finishes binding.
@@ -53,6 +54,7 @@ mise exec -- pnpm build
 ### Phase 3: Start the Server (CRITICAL)
 
 The server MUST be started in a way that:
+
 - Survives bash session closure (use `setsid` + `nohup`)
 - Uses `mise exec --` to resolve tools before detaching
 - Uses an explicit port
@@ -67,6 +69,7 @@ echo "Server PID: $!"
 `mise exec --` resolves the PATH and environment for the specified tools (Node.js, pnpm) before executing the child process. This environment is then inherited by the child, even when `setsid` starts a new session. This eliminates the need for temporary startup scripts.
 
 **Why each part matters:**
+
 - `setsid` — creates a new session; server won't receive SIGHUP when your bash session ends
 - `nohup` — additional protection against hangup signals
 - `mise exec --` — ensures `node` is on PATH and correctly resolved before detaching
@@ -114,7 +117,9 @@ mise exec -- playwright-cli screenshot --filename=screenshot.png
 ```
 
 **Important playwright-cli gotchas:**
+
 - **Separate eval calls:** `setAttribute` + `getAttribute` in a single eval returns `undefined`. Always use two separate eval calls:
+
   ```bash
   # WRONG — returns undefined
   mise exec -- playwright-cli eval "document.documentElement.setAttribute('data-theme','dark'); document.documentElement.getAttribute('data-theme')"
@@ -123,6 +128,7 @@ mise exec -- playwright-cli screenshot --filename=screenshot.png
   mise exec -- playwright-cli eval "document.documentElement.setAttribute('data-theme','dark')"
   mise exec -- playwright-cli eval "document.documentElement.getAttribute('data-theme')"
   ```
+
 - **Theme switching:** Use `document.documentElement.setAttribute('data-theme', 'dark')` then verify with a separate `getAttribute` call before reading computed styles.
 - **Use `localhost` not `127.0.0.1`:** Astro preview binds to IPv6 `::1`. `localhost` resolves correctly; `127.0.0.1` will get "Connection refused".
 
@@ -153,9 +159,10 @@ lsof -i :4321 2>/dev/null && echo "WARNING: port 4321 still in use" || echo "Cle
   - `search.spec.ts` — Pagefind search modal, light/dark styling
   - Create new spec files for new feature domains
 - **How to write specs**: Use `@playwright/test`, follow existing spec patterns:
+
   ```typescript
   import { test, expect } from '@playwright/test';
-  
+
   test.describe('Feature Name', () => {
     test('specific behavior', async ({ page, isMobile }) => {
       await page.goto('/path/');
@@ -163,6 +170,7 @@ lsof -i :4321 2>/dev/null && echo "WARNING: port 4321 still in use" || echo "Cle
     });
   });
   ```
+
 - **Running specs**: `mise exec -- pnpm test:e2e` (runs all specs against built site)
 - **Key rules**:
   - Use relative URLs (baseURL is configured)
@@ -202,19 +210,25 @@ lsof -ti :4321 | xargs kill 2>/dev/null || true
 ## Failure Recovery
 
 ### "node: not found"
+
 Verify mise is installed and `mise.toml` is present in the project root. Run `mise install` to ensure all tools are installed and available.
 
 ### "Connection refused" on curl/playwright-cli
+
 Astro preview binds to IPv6 (`::1`). Use `http://localhost:4321/` not `http://127.0.0.1:4321/`.
 
 ### Server dies mid-session
+
 If playwright-cli commands start failing with connection errors:
+
 1. Check server: `lsof -i :4321` — if empty, server died
 2. Check logs: `cat /tmp/astro-preview.log`
 3. Restart from Phase 1 (clean environment)
 
 ### Port conflict
+
 If `lsof -i :4321` shows a process you didn't start:
+
 ```bash
 # Force kill whatever holds the port
 lsof -ti :4321 | xargs kill -9
@@ -223,6 +237,7 @@ sleep 2
 ```
 
 ### playwright-cli browser becomes unresponsive
+
 ```bash
 mise exec -- playwright-cli kill-all
 # Wait, then re-open
@@ -247,16 +262,16 @@ mise exec -- playwright-cli open http://localhost:4321/
 
 If playwright-cli QA fails, work through this in order:
 
-| # | Check | Command | Expected |
-|---|-------|---------|----------|
-| 1 | node on PATH? | `mise exec -- node --version` | Version output (not "not found") |
-| 2 | playwright-cli installed? | `mise exec -- playwright-cli --version` | Version output |
-| 3 | Server process alive? | `lsof -i :4321` | Shows `node` process |
-| 4 | Server responding? | `curl -s http://localhost:4321/` | Returns HTML |
-| 5 | Server log errors? | `cat /tmp/astro-preview.log` | No crash traces |
-| 6 | Browser session alive? | `mise exec -- playwright-cli list` | Shows active session |
-| 7 | Port free for restart? | `lsof -i :4321` after kill | Empty |
-| 8 | dist/ exists and current? | `ls -la dist/index.html` | Recent timestamp |
+| #   | Check                     | Command                                 | Expected                         |
+| --- | ------------------------- | --------------------------------------- | -------------------------------- |
+| 1   | node on PATH?             | `mise exec -- node --version`           | Version output (not "not found") |
+| 2   | playwright-cli installed? | `mise exec -- playwright-cli --version` | Version output                   |
+| 3   | Server process alive?     | `lsof -i :4321`                         | Shows `node` process             |
+| 4   | Server responding?        | `curl -s http://localhost:4321/`        | Returns HTML                     |
+| 5   | Server log errors?        | `cat /tmp/astro-preview.log`            | No crash traces                  |
+| 6   | Browser session alive?    | `mise exec -- playwright-cli list`      | Shows active session             |
+| 7   | Port free for restart?    | `lsof -i :4321` after kill              | Empty                            |
+| 8   | dist/ exists and current? | `ls -la dist/index.html`                | Recent timestamp                 |
 
 ## Environment Details (for reference)
 

@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <button
@@ -51,10 +52,10 @@
   .moon-icon {
     display: block;
   }
-  [data-theme="dark"] .sun-icon {
+  [data-theme='dark'] .sun-icon {
     display: block;
   }
-  [data-theme="dark"] .moon-icon {
+  [data-theme='dark'] .moon-icon {
     display: none;
   }
 </style>
@@ -70,7 +71,7 @@
     toggleButton.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
+
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
     });

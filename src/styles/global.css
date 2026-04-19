@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "@tailwindcss/typography";
 
 /* ============================================================
@@ -25,11 +25,11 @@
 
   /* Typography */
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-serif: "DM Serif Display", Georgia, "Times New Roman", serif;
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
+    ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo,
     monospace;
 
   /* Border Radius */
@@ -42,7 +42,7 @@
 /* ============================================================
    DARK MODE OVERRIDES
    ============================================================ */
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-bg: #151618;
   --color-bg-subtle: #1c1d21;
   --color-surface: #24252a;
@@ -54,13 +54,12 @@
   --color-accent-subtle: #2c2418;
   --color-accent-foreground: #2a1500;
   --color-code-bg: #1c1d21;
-
 }
 
 /* Pagefind Component UI dark mode overrides.
    Uses html[data-theme="dark"] (specificity 0,1,1) to beat Pagefind's
    :root defaults (specificity 0,1,0) which load in a later stylesheet. */
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   --pf-text: var(--color-text);
   --pf-text-secondary: var(--color-text-muted);
   --pf-text-muted: var(--color-text-muted);
@@ -144,7 +143,7 @@ html[data-theme="dark"] {
 /* ============================================================
    PROSE DARK MODE OVERRIDES
    ============================================================ */
-[data-theme="dark"] .prose {
+[data-theme='dark'] .prose {
   --tw-prose-body: var(--color-text);
   --tw-prose-headings: var(--color-text);
   --tw-prose-lead: var(--color-text-muted);

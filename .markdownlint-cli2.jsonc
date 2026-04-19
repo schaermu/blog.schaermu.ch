@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/main/schema/markdownlint-cli2-config-schema.json",
+  "globs": [
+    "**/*.md",
+    "!node_modules/**",
+    "!dist/**",
+    "!playwright-report/**",
+    "!test-results/**",
+    "!.sisyphus/**",
+    "!.playwright-cli/**",
+  ],
+  "ignores": ["AGENTS.md", ".github/copilot-instructions.md"],
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD022": false,
+    "MD031": false,
+    "MD032": false,
+    "MD041": false,
+  },
+}

@@ -1,9 +1,11 @@
 # Project Overview
+
 - Astro 5.x blog, static output
 - Site: https://blog.schaermu.ch
 - Deployed to GitHub Pages via GitHub Actions
 
 ## Tooling
+
 - All tools managed by `mise` (`mise.toml` at root)
 - Versions: `node = "24"`, `pnpm = "latest"`
 - MANDATORY: Prefix tool commands with `mise exec --` (e.g., `mise exec -- pnpm build`)
@@ -12,6 +14,7 @@
 - TypeScript: strict mode (extends `astro/tsconfigs/strict`)
 
 ## Commands
+
 - Dev: `mise exec -- pnpm dev`
 - Build: `mise exec -- pnpm build` (runs `astro build && pagefind --site dist`)
 - Preview: `mise exec -- pnpm preview`
@@ -19,6 +22,7 @@
 - Constraint: Do NOT run build and preview concurrently
 
 ## Project Structure
+
 - `src/content/blog/*.md`: Blog posts (Markdown)
 - `src/content.config.ts`: Content collection schema
 - `src/pages/blog/[...id].astro`: Blog post route (uses `post.id`, NOT slug)
@@ -35,6 +39,7 @@
 - `.github/workflows/deploy.yml`: CI/CD (checkout@v5, withastro/action@v5, deploy-pages@v4)
 
 ## Content Authoring
+
 - Use Astro Content Layer: `id` NOT `slug` for routing and links
 - Blog post links: `/blog/${post.id}/`
 - Use `render(entry)` from `astro:content`, NOT `entry.render()`
@@ -42,6 +47,7 @@
 - Schema: title, description, pubDate, updatedDate?, heroImage?, tags[]
 
 ## Styling
+
 - Tailwind v4 CSS-first: `@theme`, `@custom-variant dark`, `@plugin "@tailwindcss/typography"`
 - NO `tailwind.config.js`: Never create one
 - Dark mode: `data-theme` attribute on `<html>`, NOT class-based
@@ -50,6 +56,7 @@
 - Fonts: DM Serif Display (@fontsource/dm-serif-display) for headings
 
 ## Key Patterns
+
 - View Transitions: Use `<ClientRouter />`, NOT `<ViewTransitions />`
 - OG images: `new URL(path, Astro.site).href` for absolute URLs
 - RSS: uses `@astrojs/rss`, links formatted as `/blog/${post.id}/`
@@ -61,6 +68,7 @@
 - Image service: Sharp (`astro/assets/services/sharp`), `limitInputPixels: false`
 
 ## QA
+
 - Manual verification: Use `playwright-cli` skill ONLY (NOT playwright MCP, NOT @anthropic-ai/playwright-cli)
 - Manual procedure: `docs/playwright-cli-procedure.md`
 - Manual rules: Use `localhost` (NOT `127.0.0.1`), build before preview, detach with `setsid nohup mise exec --`
@@ -74,5 +82,6 @@
 - Create new spec files for new feature domains
 
 ## Deploy
+
 - GitHub Pages via GitHub Actions on push to `main`
 - Workflow: `actions/checkout@v5` -> `withastro/action@v5` -> `actions/deploy-pages@v4`

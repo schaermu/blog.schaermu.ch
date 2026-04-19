@@ -32,40 +32,72 @@ const networks = [
 ] as const;
 ---
 
-<div class="flex flex-wrap items-center gap-2 pt-6 mt-8 border-t border-[var(--color-border)]" data-pagefind-ignore>
-  <span class="text-sm font-medium text-[var(--color-text-muted)] mr-1">Teilen</span>
+<div
+  class="flex flex-wrap items-center gap-2 pt-6 mt-8 border-t border-[var(--color-border)]"
+  data-pagefind-ignore
+>
+  <span class="text-sm font-medium text-[var(--color-text-muted)] mr-1"
+    >Teilen</span
+  >
 
-  {networks.map((network) => (
-    <a
-      href={network.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={`Auf ${network.name} teilen`}
-      class="share-btn inline-flex items-center justify-center gap-2 text-sm font-medium px-3.5 py-2 bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] rounded-[var(--radius-md)] transition-all no-underline hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:shadow-sm"
-    >
-      {network.icon === 'linkedin' && (
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
-        </svg>
-      )}
-      {network.icon === 'xing' && (
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-          <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L3.17 13.694c-.09.191-.097.381-.006.535.09.151.246.221.46.221h3.454c.517 0 .748-.325.936-.66 0 0 2.44-4.206 2.527-4.356-.017-.03-2.382-4.126-2.382-4.126-.18-.308-.436-.568-.967-.568H3.648z"/>
-        </svg>
-      )}
-      {network.icon === 'bluesky' && (
-        <svg class="w-4 h-4" viewBox="0 0 600 530" fill="currentColor" stroke="none">
-          <path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/>
-        </svg>
-      )}
-      {network.icon === 'mastodon' && (
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-          <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054 19.648 19.648 0 0 0 4.636.536c.562 0 1.124-.012 1.682-.047 2.07-.116 4.28-.475 6.1-1.49a.061.061 0 0 0 .031-.046c.404-2.91.374-7.106.049-9.94zM19 11.34c0 1.127-.009 2.255-.042 3.241-.043 1.358-.598 2.09-1.895 2.2-1.43.121-2.277-.459-2.277-1.728v-3.43h2.89V9.46h-2.89V7.186c0-.682.196-1.113.735-1.308a4.08 4.08 0 0 1 1.627-.186h.648V3.68s-1.053-.088-2.045.063c-1.548.236-2.613 1.2-2.948 2.702a7.102 7.102 0 0 0-.127 1.758v1.257H10.77v2.163h1.906v5.431c-2.263-.276-3.474-1.476-3.628-3.64-.073-1.022-.054-3.217.002-4.073.15-2.32 1.564-4.104 3.855-4.56a8.652 8.652 0 0 1 2.483-.131c1.08.071 2.107.333 2.862.973.832.705 1.241 1.596 1.367 2.768.097.888.109 1.79.08 2.687l.303.003z"/>
-        </svg>
-      )}
-      {network.name}
-    </a>
-  ))}
+  {
+    networks.map((network) => (
+      <a
+        href={network.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Auf ${network.name} teilen`}
+        class="share-btn inline-flex items-center justify-center gap-2 text-sm font-medium px-3.5 py-2 bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] rounded-[var(--radius-md)] transition-all no-underline hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:shadow-sm"
+      >
+        {network.icon === 'linkedin' && (
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+            <rect width="4" height="12" x="2" y="9" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+        )}
+        {network.icon === 'xing' && (
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="none"
+          >
+            <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L3.17 13.694c-.09.191-.097.381-.006.535.09.151.246.221.46.221h3.454c.517 0 .748-.325.936-.66 0 0 2.44-4.206 2.527-4.356-.017-.03-2.382-4.126-2.382-4.126-.18-.308-.436-.568-.967-.568H3.648z" />
+          </svg>
+        )}
+        {network.icon === 'bluesky' && (
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 600 530"
+            fill="currentColor"
+            stroke="none"
+          >
+            <path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z" />
+          </svg>
+        )}
+        {network.icon === 'mastodon' && (
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            stroke="none"
+          >
+            <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054 19.648 19.648 0 0 0 4.636.536c.562 0 1.124-.012 1.682-.047 2.07-.116 4.28-.475 6.1-1.49a.061.061 0 0 0 .031-.046c.404-2.91.374-7.106.049-9.94zM19 11.34c0 1.127-.009 2.255-.042 3.241-.043 1.358-.598 2.09-1.895 2.2-1.43.121-2.277-.459-2.277-1.728v-3.43h2.89V9.46h-2.89V7.186c0-.682.196-1.113.735-1.308a4.08 4.08 0 0 1 1.627-.186h.648V3.68s-1.053-.088-2.045.063c-1.548.236-2.613 1.2-2.948 2.702a7.102 7.102 0 0 0-.127 1.758v1.257H10.77v2.163h1.906v5.431c-2.263-.276-3.474-1.476-3.628-3.64-.073-1.022-.054-3.217.002-4.073.15-2.32 1.564-4.104 3.855-4.56a8.652 8.652 0 0 1 2.483-.131c1.08.071 2.107.333 2.862.973.832.705 1.241 1.596 1.367 2.768.097.888.109 1.79.08 2.687l.303.003z" />
+          </svg>
+        )}
+        {network.name}
+      </a>
+    ))
+  }
 
   <button
     type="button"
@@ -73,11 +105,29 @@ const networks = [
     data-share-url={url}
     class="share-copy-btn inline-flex items-center justify-center gap-2 text-sm font-medium px-3.5 py-2 bg-[var(--color-surface)] text-[var(--color-text)] border border-[var(--color-border)] rounded-[var(--radius-md)] transition-all cursor-pointer hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:shadow-sm font-[inherit]"
   >
-    <svg class="share-copy-icon w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+    <svg
+      class="share-copy-icon w-4 h-4"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+      ></path><path
+        d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
     </svg>
-    <svg class="share-check-icon w-4 h-4 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"/>
+    <svg
+      class="share-check-icon w-4 h-4 hidden"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
     <span class="share-copy-label">Link kopieren</span>
   </button>
@@ -85,50 +135,58 @@ const networks = [
 
 <script>
   function setupShareButtons() {
-    document.querySelectorAll<HTMLButtonElement>('.share-copy-btn').forEach((btn) => {
-      if (btn.dataset.listenerAttached === 'true') return;
-      btn.dataset.listenerAttached = 'true';
+    document
+      .querySelectorAll<HTMLButtonElement>('.share-copy-btn')
+      .forEach((btn) => {
+        if (btn.dataset.listenerAttached === 'true') return;
+        btn.dataset.listenerAttached = 'true';
 
-      btn.addEventListener('click', async () => {
-        const url = btn.dataset.shareUrl;
-        if (!url) return;
+        btn.addEventListener('click', async () => {
+          const url = btn.dataset.shareUrl;
+          if (!url) return;
 
-        try {
-          await navigator.clipboard.writeText(url);
+          try {
+            await navigator.clipboard.writeText(url);
 
-          const linkIcon = btn.querySelector('.share-copy-icon') as HTMLElement;
-          const checkIcon = btn.querySelector('.share-check-icon') as HTMLElement;
-          const label = btn.querySelector('.share-copy-label') as HTMLElement;
+            const linkIcon = btn.querySelector(
+              '.share-copy-icon',
+            ) as HTMLElement;
+            const checkIcon = btn.querySelector(
+              '.share-check-icon',
+            ) as HTMLElement;
+            const label = btn.querySelector('.share-copy-label') as HTMLElement;
 
-          if (linkIcon && checkIcon && label) {
-            linkIcon.classList.add('hidden');
-            checkIcon.classList.remove('hidden');
-            label.textContent = 'Kopiert!';
+            if (linkIcon && checkIcon && label) {
+              linkIcon.classList.add('hidden');
+              checkIcon.classList.remove('hidden');
+              label.textContent = 'Kopiert!';
 
-            setTimeout(() => {
-              linkIcon.classList.remove('hidden');
-              checkIcon.classList.add('hidden');
-              label.textContent = 'Link kopieren';
-            }, 2000);
+              setTimeout(() => {
+                linkIcon.classList.remove('hidden');
+                checkIcon.classList.add('hidden');
+                label.textContent = 'Link kopieren';
+              }, 2000);
+            }
+          } catch {
+            const textArea = document.createElement('textarea');
+            textArea.value = url;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+
+            const label = btn.querySelector('.share-copy-label') as HTMLElement;
+            if (label) {
+              label.textContent = 'Kopiert!';
+              setTimeout(() => {
+                label.textContent = 'Link kopieren';
+              }, 2000);
+            }
           }
-        } catch {
-          const textArea = document.createElement('textarea');
-          textArea.value = url;
-          textArea.style.position = 'fixed';
-          textArea.style.opacity = '0';
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-
-          const label = btn.querySelector('.share-copy-label') as HTMLElement;
-          if (label) {
-            label.textContent = 'Kopiert!';
-            setTimeout(() => { label.textContent = 'Link kopieren'; }, 2000);
-          }
-        }
+        });
       });
-    });
   }
 
   setupShareButtons();

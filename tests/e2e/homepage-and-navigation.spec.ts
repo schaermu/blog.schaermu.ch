@@ -7,7 +7,9 @@ test.describe('homepage and navigation', () => {
 
   test('homepage renders latest posts and post cards', async ({ page }) => {
     await expect(page).toHaveTitle(/Blog \| schaermu\.ch/);
-    await expect(page.getByRole('heading', { level: 1, name: 'Neueste Beiträge' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: 'Neueste Beiträge' }),
+    ).toBeVisible();
 
     const postCards = page.locator('article');
     await expect(postCards.first()).toBeVisible();
@@ -28,7 +30,10 @@ test.describe('homepage and navigation', () => {
     }
   });
 
-  test('desktop header shows nav links and hides hamburger', async ({ page, isMobile }) => {
+  test('desktop header shows nav links and hides hamburger', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(isMobile);
 
     const desktopNavLinks = page.locator('header .hidden.md\\:flex nav a');
@@ -36,7 +41,10 @@ test.describe('homepage and navigation', () => {
     await expect(page.locator('#mobile-menu-btn')).toBeHidden();
   });
 
-  test('mobile hamburger opens menu and supports close interactions', async ({ page, isMobile }) => {
+  test('mobile hamburger opens menu and supports close interactions', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(!isMobile);
 
     const menuButton = page.locator('#mobile-menu-btn');
@@ -72,7 +80,9 @@ test.describe('homepage and navigation', () => {
     await expect(footer.getByRole('link', { name: /rss/i })).toBeVisible();
   });
 
-  test('navigation reaches blog post, tags, and about pages', async ({ page }) => {
+  test('navigation reaches blog post, tags, and about pages', async ({
+    page,
+  }) => {
     const firstPostLink = page.locator('article a[href^="/blog/"]').first();
 
     await firstPostLink.click();
@@ -85,6 +95,8 @@ test.describe('homepage and navigation', () => {
 
     await page.goto('/about/');
     await expect(page).toHaveURL('/about/');
-    await expect(page.getByRole('heading', { level: 1, name: /über mich/i })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { level: 1, name: /über mich/i }),
+    ).toBeVisible();
   });
 });

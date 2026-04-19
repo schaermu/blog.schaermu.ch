@@ -5,7 +5,10 @@ test.describe('search', () => {
     await page.goto('/');
   });
 
-  test('desktop search trigger opens pagefind modal', async ({ page, isMobile }) => {
+  test('desktop search trigger opens pagefind modal', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(isMobile);
 
     const trigger = page.locator('pagefind-modal-trigger.search-trigger');
@@ -16,13 +19,21 @@ test.describe('search', () => {
     await expect(modal).toBeVisible();
   });
 
-  test('mobile desktop-nav search trigger is hidden', async ({ page, isMobile }) => {
+  test('mobile desktop-nav search trigger is hidden', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(!isMobile);
 
-    await expect(page.locator('.hidden.md\\:flex pagefind-modal-trigger.search-trigger')).toBeHidden();
+    await expect(
+      page.locator('.hidden.md\\:flex pagefind-modal-trigger.search-trigger'),
+    ).toBeHidden();
   });
 
-  test('mobile search button closes menu and opens pagefind modal', async ({ page, isMobile }) => {
+  test('mobile search button closes menu and opens pagefind modal', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(!isMobile);
 
     const menuButton = page.locator('#mobile-menu-btn');
@@ -39,7 +50,10 @@ test.describe('search', () => {
     await expect(modal).toBeVisible();
   });
 
-  test('desktop search returns results for fixture content', async ({ page, isMobile }) => {
+  test('desktop search returns results for fixture content', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(isMobile, 'search interaction tested on desktop only');
 
     const trigger = page.locator('pagefind-modal-trigger.search-trigger');
@@ -50,14 +64,19 @@ test.describe('search', () => {
     await expect(searchInput).toBeVisible();
     await searchInput.fill('Fixture');
 
-    const results = page.locator('pagefind-modal dialog.pf-modal a[href*="/blog/"]');
+    const results = page.locator(
+      'pagefind-modal dialog.pf-modal a[href*="/blog/"]',
+    );
     await expect(results.first()).toBeVisible({ timeout: 10000 });
 
     const count = await results.count();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('clicking a search result navigates to blog post', async ({ page, isMobile }) => {
+  test('clicking a search result navigates to blog post', async ({
+    page,
+    isMobile,
+  }) => {
     test.skip(isMobile, 'search interaction tested on desktop only');
 
     const trigger = page.locator('pagefind-modal-trigger.search-trigger');
@@ -67,7 +86,9 @@ test.describe('search', () => {
     const searchInput = page.getByRole('searchbox', { name: 'Suche' });
     await searchInput.fill('Fixture');
 
-    const results = page.locator('pagefind-modal dialog.pf-modal a[href*="/blog/"]');
+    const results = page.locator(
+      'pagefind-modal dialog.pf-modal a[href*="/blog/"]',
+    );
     await expect(results.first()).toBeVisible({ timeout: 10000 });
 
     await results.first().click();

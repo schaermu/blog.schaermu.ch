@@ -12,7 +12,9 @@ test.describe('share buttons', () => {
   });
 
   test('renders share label and all five buttons', async ({ page }) => {
-    const container = page.locator('[data-pagefind-ignore]').filter({ hasText: 'Teilen' });
+    const container = page
+      .locator('[data-pagefind-ignore]')
+      .filter({ hasText: 'Teilen' });
     await expect(container).toBeVisible();
     await expect(container.locator('text=Teilen').first()).toBeVisible();
 
@@ -20,7 +22,9 @@ test.describe('share buttons', () => {
     await expect(container.locator('a', { hasText: 'Xing' })).toBeVisible();
     await expect(container.locator('a', { hasText: 'Bluesky' })).toBeVisible();
     await expect(container.locator('a', { hasText: 'Mastodon' })).toBeVisible();
-    await expect(container.locator('button', { hasText: 'Link kopieren' })).toBeVisible();
+    await expect(
+      container.locator('button', { hasText: 'Link kopieren' }),
+    ).toBeVisible();
   });
 
   test('LinkedIn share link has correct href', async ({ page }) => {
@@ -64,11 +68,17 @@ test.describe('share buttons', () => {
 
     for (let i = 0; i < count; i++) {
       await expect(shareLinks.nth(i)).toHaveAttribute('target', '_blank');
-      await expect(shareLinks.nth(i)).toHaveAttribute('rel', 'noopener noreferrer');
+      await expect(shareLinks.nth(i)).toHaveAttribute(
+        'rel',
+        'noopener noreferrer',
+      );
     }
   });
 
-  test('copy link button shows "Copied!" feedback on click', async ({ page, context }) => {
+  test('copy link button shows "Copied!" feedback on click', async ({
+    page,
+    context,
+  }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
 
     const copyBtn = page.locator('.share-copy-btn');
@@ -86,21 +96,31 @@ test.describe('share buttons', () => {
     await expect(label).toHaveText('Link kopieren', { timeout: 5000 });
   });
 
-  test('copy link button stores correct URL in data attribute', async ({ page }) => {
+  test('copy link button stores correct URL in data attribute', async ({
+    page,
+  }) => {
     const copyBtn = page.locator('.share-copy-btn');
     await expect(copyBtn).toHaveAttribute('data-share-url', FULL_POST_URL);
   });
 
   test('share buttons are excluded from search index', async ({ page }) => {
-    const container = page.locator('[data-pagefind-ignore]').filter({ hasText: 'Teilen' });
+    const container = page
+      .locator('[data-pagefind-ignore]')
+      .filter({ hasText: 'Teilen' });
     await expect(container).toHaveAttribute('data-pagefind-ignore', '');
   });
 
-  test('share buttons also appear on post without hero image', async ({ page }) => {
+  test('share buttons also appear on post without hero image', async ({
+    page,
+  }) => {
     await page.goto('/blog/e2e-fixture-no-hero/');
 
-    await expect(page.locator('a[aria-label="Auf LinkedIn teilen"]')).toBeVisible();
-    await expect(page.locator('a[aria-label="Auf Bluesky teilen"]')).toBeVisible();
+    await expect(
+      page.locator('a[aria-label="Auf LinkedIn teilen"]'),
+    ).toBeVisible();
+    await expect(
+      page.locator('a[aria-label="Auf Bluesky teilen"]'),
+    ).toBeVisible();
     await expect(page.locator('.share-copy-btn')).toBeVisible();
   });
 

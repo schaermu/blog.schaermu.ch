@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-async function setTheme(page: Parameters<typeof test>[0]['page'], theme: 'light' | 'dark') {
+async function setTheme(
+  page: Parameters<typeof test>[0]['page'],
+  theme: 'light' | 'dark',
+) {
   await page.evaluate((value) => {
     document.documentElement.setAttribute('data-theme', value);
     localStorage.setItem('theme', value);
@@ -12,12 +15,19 @@ test.describe('theme switching', () => {
     await page.goto('/');
   });
 
-  test('default theme exists on html and toggle is visible', async ({ page }) => {
-    await expect(page.locator('html')).toHaveAttribute('data-theme', /^(light|dark)$/);
+  test('default theme exists on html and toggle is visible', async ({
+    page,
+  }) => {
+    await expect(page.locator('html')).toHaveAttribute(
+      'data-theme',
+      /^(light|dark)$/,
+    );
     await expect(page.locator('#theme-toggle')).toBeVisible();
   });
 
-  test('light mode shows moon icon and dark mode shows sun icon', async ({ page }) => {
+  test('light mode shows moon icon and dark mode shows sun icon', async ({
+    page,
+  }) => {
     await setTheme(page, 'light');
     await page.reload();
 
@@ -33,7 +43,9 @@ test.describe('theme switching', () => {
     await expect(page.locator('.moon-icon')).toBeHidden();
   });
 
-  test('clicking toggle switches themes and persists localStorage', async ({ page }) => {
+  test('clicking toggle switches themes and persists localStorage', async ({
+    page,
+  }) => {
     await setTheme(page, 'light');
     await page.reload();
 
@@ -41,26 +53,34 @@ test.describe('theme switching', () => {
 
     await toggle.click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect.poll(async () => page.evaluate(() => localStorage.getItem('theme'))).toBe('dark');
+    await expect
+      .poll(async () => page.evaluate(() => localStorage.getItem('theme')))
+      .toBe('dark');
 
     await toggle.click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
-    await expect.poll(async () => page.evaluate(() => localStorage.getItem('theme'))).toBe('light');
+    await expect
+      .poll(async () => page.evaluate(() => localStorage.getItem('theme')))
+      .toBe('light');
   });
 
   test('theme changes body background color', async ({ page }) => {
     await setTheme(page, 'light');
     await page.reload();
 
-    const lightBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+    const lightBackground = await page.evaluate(
+      () => getComputedStyle(document.body).backgroundColor,
+    );
 
     await page.locator('#theme-toggle').click();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 
     // Poll until the CSS transition (0.15s) completes and the background actually changes
-    await expect.poll(
-      () => page.evaluate(() => getComputedStyle(document.body).backgroundColor),
-    ).not.toBe(lightBackground);
+    await expect
+      .poll(() =>
+        page.evaluate(() => getComputedStyle(document.body).backgroundColor),
+      )
+      .not.toBe(lightBackground);
   });
 
   test('theme toggle works on a blog post page', async ({ page }) => {

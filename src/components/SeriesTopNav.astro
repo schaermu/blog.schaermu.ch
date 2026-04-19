@@ -11,70 +11,100 @@ const { name, current, total, prev, next } = Astro.props;
 ---
 
 {/* Desktop: inline prev/next links */}
-<nav aria-label="Schnellnavigation Serie" class="hidden md:flex items-center justify-between text-sm text-[var(--color-text-muted)] mb-6 px-1">
+<nav
+  aria-label="Schnellnavigation Serie"
+  class="hidden md:flex items-center justify-between text-sm text-[var(--color-text-muted)] mb-6 px-1"
+>
   <div class="min-w-0 flex-1">
-    {prev ? (
-      <a
-        href={`/blog/${prev.id}/`}
-        class="inline-flex items-center gap-1 hover:text-[var(--color-accent)] transition-colors no-underline truncate max-w-full"
-        title={prev.title}
-      >
-        <span aria-hidden="true">&larr;</span>
-        <span class="truncate">{prev.title}</span>
-      </a>
-    ) : (
-      <span />
-    )}
+    {
+      prev ? (
+        <a
+          href={`/blog/${prev.id}/`}
+          class="inline-flex items-center gap-1 hover:text-[var(--color-accent)] transition-colors no-underline truncate max-w-full"
+          title={prev.title}
+        >
+          <span aria-hidden="true">&larr;</span>
+          <span class="truncate">{prev.title}</span>
+        </a>
+      ) : (
+        <span />
+      )
+    }
   </div>
   <span class="mx-4 shrink-0 text-[var(--color-text-muted)]">
     {name} ({current}/{total})
   </span>
   <div class="min-w-0 flex-1 text-right">
-    {next ? (
-      <a
-        href={`/blog/${next.id}/`}
-        class="inline-flex items-center gap-1 justify-end hover:text-[var(--color-accent)] transition-colors no-underline truncate max-w-full"
-        title={next.title}
-      >
-        <span class="truncate">{next.title}</span>
-        <span aria-hidden="true">&rarr;</span>
-      </a>
-    ) : (
-      <span />
-    )}
+    {
+      next ? (
+        <a
+          href={`/blog/${next.id}/`}
+          class="inline-flex items-center gap-1 justify-end hover:text-[var(--color-accent)] transition-colors no-underline truncate max-w-full"
+          title={next.title}
+        >
+          <span class="truncate">{next.title}</span>
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      ) : (
+        <span />
+      )
+    }
   </div>
 </nav>
 
 {/* Mobile: collapsible details/summary */}
-<details class="md:hidden mb-6 text-sm border border-[var(--color-border)] rounded-[var(--radius-md)] bg-[var(--color-surface)]">
-  <summary class="flex items-center justify-between cursor-pointer px-4 py-2.5 text-[var(--color-text-muted)] select-none">
+<details
+  class="md:hidden mb-6 text-sm border border-[var(--color-border)] rounded-[var(--radius-md)] bg-[var(--color-surface)]"
+>
+  <summary
+    class="flex items-center justify-between cursor-pointer px-4 py-2.5 text-[var(--color-text-muted)] select-none"
+  >
     <span>
       <span class="text-[var(--color-accent)] font-medium">{name}</span>
       <span class="ml-1">({current}/{total})</span>
     </span>
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transition-transform details-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-4 h-4 transition-transform details-chevron"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
     </svg>
   </summary>
-  <div class="px-4 pb-3 pt-1 flex flex-col gap-2 border-t border-[var(--color-border)]">
-    {prev && (
-      <a
-        href={`/blog/${prev.id}/`}
-        class="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors no-underline"
-      >
-        <span aria-hidden="true" class="text-[var(--color-text-muted)]">&larr;</span>
-        <span class="truncate">{prev.title}</span>
-      </a>
-    )}
-    {next && (
-      <a
-        href={`/blog/${next.id}/`}
-        class="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors no-underline"
-      >
-        <span aria-hidden="true" class="text-[var(--color-text-muted)]">&rarr;</span>
-        <span class="truncate">{next.title}</span>
-      </a>
-    )}
+  <div
+    class="px-4 pb-3 pt-1 flex flex-col gap-2 border-t border-[var(--color-border)]"
+  >
+    {
+      prev && (
+        <a
+          href={`/blog/${prev.id}/`}
+          class="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors no-underline"
+        >
+          <span aria-hidden="true" class="text-[var(--color-text-muted)]">
+            &larr;
+          </span>
+          <span class="truncate">{prev.title}</span>
+        </a>
+      )
+    }
+    {
+      next && (
+        <a
+          href={`/blog/${next.id}/`}
+          class="flex items-center gap-2 text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors no-underline"
+        >
+          <span aria-hidden="true" class="text-[var(--color-text-muted)]">
+            &rarr;
+          </span>
+          <span class="truncate">{next.title}</span>
+        </a>
+      )
+    }
   </div>
 </details>
 
