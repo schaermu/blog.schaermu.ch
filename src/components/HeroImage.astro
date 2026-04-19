@@ -1,0 +1,71 @@
+---
+/**
+ * HeroImage.astro
+ *
+ * Renders a responsive hero image via Cloudflare Image Transformations.
+ * Source images are pulled from storage.schaermu.ch (R2).
+ * Transforms are cached at the CF edge — only the first request per
+ * size/format combination hits R2.
+ */
+
+interface Props {
+  src: string;
+  alt: string;
+  /** Whether this is an above-the-fold image (sets fetchpriority=high + eager loading) */
+  priority?: boolean;
+  /** CSS class forwarded to the <img> element */
+  class?: string;
+  /** Optional sizes attribute for contexts narrower than the full article width */
+  sizes?: string;
+}
+
+const {
+  src,
+  alt,
+  priority = false,
+  class: className,
+  sizes: customSizes,
+} = Astro.props;
+
+const CF_BASE = 'https://blog.schaermu.ch/cdn-cgi/image';
+
+/**
+ * Build a Cloudflare transformation URL.
+ * format=auto lets CF serve AVIF to modern browsers, WebP to older ones,
+ * JPEG as fallback — based on the Accept header. No manual <source> tags needed.
+ */
+function cfUrl(source: string, width: number, quality = 80): string {
+  const params = `width=${width},quality=${quality},format=auto,fit=cover`;
+  return `${CF_BASE}/${params}/${source}`;
+}
+
+// Breakpoints: mobile → tablet → desktop → wide
+// Adjust these to match your blog's max content width
+const widths = [480, 768, 1024, 1440];
+
+const srcset = widths.map((w) => `${cfUrl(src, w)} ${w}w`).join(', ');
+
+// sizes: matches a typical blog layout with a max-width container
+const sizes =
+  customSizes ??
+  ['(min-width: 1200px) 1024px', '(min-width: 768px) 100vw', '100vw'].join(
+    ', ',
+  );
+
+// The default src is the largest width — used as fallback for browsers
+// that don't support srcset (essentially none in 2025, but still correct)
+const defaultSrc = cfUrl(src, 1440);
+---
+
+<img
+  src={defaultSrc}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  width="1440"
+  height="810"
+  loading={priority ? 'eager' : 'lazy'}
+  decoding={priority ? 'sync' : 'async'}
+  fetchpriority={priority ? 'high' : 'auto'}
+  class={className}
+/>

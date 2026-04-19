@@ -30,6 +30,30 @@ test.describe('homepage and navigation', () => {
     }
   });
 
+  test('homepage hero cards use responsive Cloudflare image transforms', async ({
+    page,
+  }) => {
+    const heroCard = page
+      .locator('article')
+      .filter({ hasText: 'E2E Fixture Absolute Hero' });
+    const heroImg = heroCard.locator('img[alt="E2E Fixture Absolute Hero"]');
+
+    await expect(heroCard).toBeVisible();
+    await expect(heroImg).toBeVisible();
+    await expect(heroImg).toHaveAttribute(
+      'src',
+      /https:\/\/blog\.schaermu\.ch\/cdn-cgi\/image\/width=1440,quality=80,format=auto,fit=cover\/https:\/\/storage\.schaermu\.ch\/blog\/test-hero\.png$/,
+    );
+    await expect(heroImg).toHaveAttribute(
+      'srcset',
+      /width=480,quality=80,format=auto,fit=cover\/https:\/\/storage\.schaermu\.ch\/blog\/test-hero\.png 480w/,
+    );
+    await expect(heroImg).toHaveAttribute(
+      'sizes',
+      '(min-width: 768px) 33vw, 100vw',
+    );
+  });
+
   test('desktop header shows nav links and hides hamburger', async ({
     page,
     isMobile,

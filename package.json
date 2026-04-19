@@ -25,7 +25,6 @@
     "@pagefind/component-ui": "^1.5.2",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
-    "@unpic/astro": "^1.0.2",
     "astro": "^6.1.5",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2"
