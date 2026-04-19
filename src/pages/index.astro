@@ -3,84 +3,115 @@ import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const posts = (await getCollection('blog', ({ data }) => {
-  return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
-})).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const posts = (
+  await getCollection('blog', ({ data }) => {
+    return process.env.INCLUDE_TEST_FIXTURES === 'true'
+      ? true
+      : !data.testFixture;
+  })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', { eager: true });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/blog/*',
+  { eager: true },
+);
 const getImageKey = (heroImage: string) => heroImage.replace('../../', '../');
 ---
 
-<BaseLayout title="Blog" description="Ein Blog über Software-Entwicklung und Technologie">
+<BaseLayout
+  title="Blog"
+  description="Ein Blog über Software-Entwicklung und Technologie"
+>
   <h1 class="text-5xl text-[var(--color-text)] mb-8">Neueste Beiträge</h1>
-  
+
   <div class="grid gap-8">
-    {posts.map((post) => (
-      <article class="flex flex-col md:flex-row gap-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6 shadow-sm hover:shadow-md transition-shadow">
-        {post.data.heroImage && post.data.heroImage.startsWith('http') && (
-          <div class="w-full md:w-1/3 shrink-0">
-            <a href={`/blog/${post.id}/`} class="block overflow-hidden rounded-[var(--radius-md)] h-full">
-              <img
-                src={post.data.heroImage}
-                alt={post.data.title}
-                width={400}
-                height={225}
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                transition:name={`post-hero-${post.id}`}
-              />
-            </a>
-          </div>
-        )}
-        {post.data.heroImage && !post.data.heroImage.startsWith('http') && images[getImageKey(post.data.heroImage)] && (
-          <div class="w-full md:w-1/3 shrink-0">
-            <a href={`/blog/${post.id}/`} class="block overflow-hidden rounded-[var(--radius-md)] h-full">
-              <Image 
-                src={images[getImageKey(post.data.heroImage)]!.default} 
-                alt={post.data.title} 
-                width={400} 
-                height={225} 
-                class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                transition:name={`post-hero-${post.id}`}
-              />
-            </a>
-          </div>
-        )}
-        
-        <div class="flex-grow flex flex-col justify-center">
-          <h2 class="text-3xl mb-2" transition:name={`post-title-${post.id}`}>
-            <a href={`/blog/${post.id}/`} class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">
-              {post.data.title}
-            </a>
-          </h2>
-          
-          <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[var(--color-text-muted)] mb-4">
-            <time datetime={post.data.pubDate.toISOString()}>
-               {post.data.pubDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </time>
-            <span>&bull;</span>
-            <span>{Math.ceil(post.body?.split(/\s+/).length / 200) || 1} Min. Lesezeit</span>
-          </div>
-          
-          <p class="text-[var(--color-text)] mb-4 flex-grow line-clamp-3">
-            {post.data.description}
-          </p>
-          
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 mt-auto">
-              {post.data.tags.map((tag) => (
-                <a 
-                  href={`/tags/${tag}/`}
-                  class="text-xs font-medium px-2.5 py-1 bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] rounded-[var(--radius-sm)] transition-colors"
-                >
-                  #{tag}
-                </a>
-              ))}
+    {
+      posts.map((post) => (
+        <article class="flex flex-col md:flex-row gap-6 bg-[var(--color-surface)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-6 shadow-sm hover:shadow-md transition-shadow">
+          {post.data.heroImage && post.data.heroImage.startsWith('http') && (
+            <div class="w-full md:w-1/3 shrink-0">
+              <a
+                href={`/blog/${post.id}/`}
+                class="block overflow-hidden rounded-[var(--radius-md)] h-full"
+              >
+                <img
+                  src={post.data.heroImage}
+                  alt={post.data.title}
+                  width={400}
+                  height={225}
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  transition:name={`post-hero-${post.id}`}
+                />
+              </a>
             </div>
           )}
-        </div>
-      </article>
-    ))}
+          {post.data.heroImage &&
+            !post.data.heroImage.startsWith('http') &&
+            images[getImageKey(post.data.heroImage)] && (
+              <div class="w-full md:w-1/3 shrink-0">
+                <a
+                  href={`/blog/${post.id}/`}
+                  class="block overflow-hidden rounded-[var(--radius-md)] h-full"
+                >
+                  <Image
+                    src={images[getImageKey(post.data.heroImage)]!.default}
+                    alt={post.data.title}
+                    width={400}
+                    height={225}
+                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    transition:name={`post-hero-${post.id}`}
+                  />
+                </a>
+              </div>
+            )}
+
+          <div class="flex-grow flex flex-col justify-center">
+            <h2 class="text-3xl mb-2" transition:name={`post-title-${post.id}`}>
+              <a
+                href={`/blog/${post.id}/`}
+                class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors"
+              >
+                {post.data.title}
+              </a>
+            </h2>
+
+            <div class="flex flex-wrap gap-x-4 gap-y-2 text-sm text-[var(--color-text-muted)] mb-4">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('de-CH', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              <span>&bull;</span>
+              <span>
+                {Math.max(
+                  1,
+                  Math.ceil((post.body?.split(/\s+/).length ?? 0) / 200),
+                )}{' '}
+                Min. Lesezeit
+              </span>
+            </div>
+
+            <p class="text-[var(--color-text)] mb-4 flex-grow line-clamp-3">
+              {post.data.description}
+            </p>
+
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mt-auto">
+                {post.data.tags.map((tag) => (
+                  <a
+                    href={`/tags/${tag}/`}
+                    class="text-xs font-medium px-2.5 py-1 bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] rounded-[var(--radius-sm)] transition-colors"
+                  >
+                    #{tag}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+      ))
+    }
   </div>
 </BaseLayout>

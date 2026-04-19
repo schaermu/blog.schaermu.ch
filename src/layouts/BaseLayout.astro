@@ -22,11 +22,15 @@ const { title, description, image, ogType, flushTop } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    
+
     <script is:inline>
-      (function() {
+      (function () {
         const stored = localStorage.getItem('theme');
-        const theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        const theme =
+          stored ||
+          (window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light');
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
@@ -56,30 +60,47 @@ const { title, description, image, ogType, flushTop } = Astro.props;
         });
       })();
     </script>
-    
+
     <title>{title} | schaermu.ch</title>
     <meta name="description" content={description} />
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content={ogType || 'website'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content="blog.schaermu.ch" />
-    <meta property="og:image" content={image ? new URL(image, Astro.site).href : new URL('/og-default.png', Astro.site).href} />
+    <meta
+      property="og:image"
+      content={image
+        ? new URL(image, Astro.site).href
+        : new URL('/og-default.png', Astro.site).href}
+    />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image ? new URL(image, Astro.site).href : new URL('/og-default.png', Astro.site).href} />
-    
+    <meta
+      name="twitter:image"
+      content={image
+        ? new URL(image, Astro.site).href
+        : new URL('/og-default.png', Astro.site).href}
+    />
+
     <ClientRouter />
-    
+
     <slot name="head" />
   </head>
   <body class="flex flex-col min-h-screen">
     <Header data-pagefind-ignore />
-    <main data-pagefind-body class:list={["flex-grow w-full max-w-4xl mx-auto px-4 pb-8", flushTop ? "pt-0" : "pt-8"]} transition:animate="fade">
+    <main
+      data-pagefind-body
+      class:list={[
+        'flex-grow w-full max-w-4xl mx-auto px-4 pb-8',
+        flushTop ? 'pt-0' : 'pt-8',
+      ]}
+      transition:animate="fade"
+    >
       <slot />
     </main>
     <Footer data-pagefind-ignore />

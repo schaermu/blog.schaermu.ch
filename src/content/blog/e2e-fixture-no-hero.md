@@ -1,11 +1,11 @@
 ---
-title: "E2E Fixture Post Without Hero"
-description: "A test fixture post without a hero image, used for E2E testing of hero absence and series navigation."
+title: 'E2E Fixture Post Without Hero'
+description: 'A test fixture post without a hero image, used for E2E testing of hero absence and series navigation.'
 pubDate: 2020-01-01
-tags: ["e2e-astro", "e2e-typescript", "e2e-tutorial"]
-series: "e2e-test-series"
+tags: ['e2e-astro', 'e2e-typescript', 'e2e-tutorial']
+series: 'e2e-test-series'
 seriesOrder: 2
-seriesTitle: "E2E Test Series"
+seriesTitle: 'E2E Test Series'
 testFixture: true
 ---
 
@@ -17,7 +17,7 @@ The goal is to make sure the absence of a hero image is handled gracefully and c
 
 ```ts
 const fixture = {
-  kind: "e2e",
+  kind: 'e2e',
   hero: false,
 };
 ```

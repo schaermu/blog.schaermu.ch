@@ -4,9 +4,13 @@ import type { APIContext } from 'astro';
 
 export async function GET(context: APIContext) {
   const posts = await getCollection('blog', ({ data }) => {
-    return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
+    return process.env.INCLUDE_TEST_FIXTURES === 'true'
+      ? true
+      : !data.testFixture;
   });
-  const sorted = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const sorted = posts.sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+  );
   return rss({
     title: 'schaermu.ch',
     description: 'Ein Blog über Software-Entwicklung und Technologie',

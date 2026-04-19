@@ -4,28 +4,41 @@ import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => {
-    return process.env.INCLUDE_TEST_FIXTURES === 'true' ? true : !data.testFixture;
+    return process.env.INCLUDE_TEST_FIXTURES === 'true'
+      ? true
+      : !data.testFixture;
   });
-  return posts.map(entry => {
-    const readingTime = Math.ceil(entry.body?.split(/\s+/).length / 200) || 1;
+  return posts.map((entry) => {
+    const readingTime = Math.max(
+      1,
+      Math.ceil((entry.body?.split(/\s+/).length ?? 0) / 200),
+    );
 
     let seriesInfo = undefined;
     if (entry.data.series) {
       const seriesPosts = posts
-        .filter(p => p.data.series === entry.data.series)
+        .filter((p) => p.data.series === entry.data.series)
         .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
 
       if (seriesPosts.length > 1) {
-        const currentIndex = seriesPosts.findIndex(p => p.id === entry.id);
-        const prevPost = currentIndex > 0 ? seriesPosts[currentIndex - 1] : undefined;
-        const nextPost = currentIndex < seriesPosts.length - 1 ? seriesPosts[currentIndex + 1] : undefined;
+        const currentIndex = seriesPosts.findIndex((p) => p.id === entry.id);
+        const prevPost =
+          currentIndex > 0 ? seriesPosts[currentIndex - 1] : undefined;
+        const nextPost =
+          currentIndex < seriesPosts.length - 1
+            ? seriesPosts[currentIndex + 1]
+            : undefined;
 
         seriesInfo = {
           name: entry.data.seriesTitle!,
           current: entry.data.seriesOrder!,
           total: seriesPosts.length,
-          prev: prevPost ? { title: prevPost.data.title, id: prevPost.id } : undefined,
-          next: nextPost ? { title: nextPost.data.title, id: nextPost.id } : undefined,
+          prev: prevPost
+            ? { title: prevPost.data.title, id: prevPost.id }
+            : undefined,
+          next: nextPost
+            ? { title: nextPost.data.title, id: nextPost.id }
+            : undefined,
         };
       }
     }

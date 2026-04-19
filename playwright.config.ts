@@ -29,7 +29,8 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'INCLUDE_TEST_FIXTURES=true mise exec -- pnpm build && mise exec -- node_modules/.bin/astro preview --port 4321',
+    command:
+      'INCLUDE_TEST_FIXTURES=true mise exec -- pnpm build && mise exec -- node_modules/.bin/astro preview --port 4321',
     url: 'http://localhost:4321',
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

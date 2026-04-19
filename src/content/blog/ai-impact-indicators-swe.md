@@ -1,12 +1,12 @@
 ---
-title: "AI Impact-Indicators im SWE-Umfeld – warum die meisten Metriken in die Irre führen"
-description: "Viele Unternehmen messen AI-Impact im SWE-Umfeld mit Activation Rate, Acceptance Rate und Mitarbeiterumfragen. Das Problem: Diese Metriken sagen aus, ob ein Tool genutzt wird – nicht, ob es einen positiven Einfluss auf die Wertschöpfung in der Software-Entwicklung hat."
+title: 'AI Impact-Indicators im SWE-Umfeld – warum die meisten Metriken in die Irre führen'
+description: 'Viele Unternehmen messen AI-Impact im SWE-Umfeld mit Activation Rate, Acceptance Rate und Mitarbeiterumfragen. Das Problem: Diese Metriken sagen aus, ob ein Tool genutzt wird – nicht, ob es einen positiven Einfluss auf die Wertschöpfung in der Software-Entwicklung hat.'
 pubDate: 2026-04-13
-heroImage: "https://storage.schaermu.ch/blog/ai-impact-indicators-swe/ai-impact-indicators-hero.jpg"
-tags: ["genai", "ai-adoption", "developer-experience"]
-series: "ai-adoption-series"
+heroImage: 'https://storage.schaermu.ch/blog/ai-impact-indicators-swe/ai-impact-indicators-hero.jpg'
+tags: ['genai', 'ai-adoption', 'developer-experience']
+series: 'ai-adoption-series'
 seriesOrder: 1
-seriesTitle: "AI Adoption in der Software-Entwickling"
+seriesTitle: 'AI Adoption in der Software-Entwickling'
 ---
 
 In vielen Unternehmen steigt die Copilot-Adoption – und gleichzeitig stagniert die Delivery-Geschwindigkeit. Wer dann nach Erklärungen sucht, stösst auf ein Messproblem, das tiefer geht als es auf den ersten Blick scheint.

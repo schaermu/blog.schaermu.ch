@@ -24,108 +24,167 @@ interface Props {
   };
 }
 
-const { title, description, pubDate, updatedDate, heroImage, tags, readingTime, id, seriesInfo } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  heroImage,
+  tags,
+  readingTime,
+  id,
+  seriesInfo,
+} = Astro.props;
 
-const images = import.meta.glob<{ default: ImageMetadata }>('../assets/blog/*', { eager: true });
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/blog/*',
+  { eager: true },
+);
 const getImageKey = (path: string) => path.replace('../../', '../');
 const isAbsoluteUrl = heroImage?.startsWith('http');
 ---
 
-<BaseLayout title={title} description={description} image={heroImage} ogType="article" flushTop={!!heroImage}>
-  {heroImage && isAbsoluteUrl && (
-    <div class="full-bleed mb-8 overflow-hidden">
-      <img
-        src={heroImage}
-        alt={title}
-        width={1920}
-        height={400}
-        data-pagefind-meta="image[src]"
-        class="w-full h-auto max-h-[400px] object-cover"
-        transition:name={`post-hero-${id}`}
-      />
-    </div>
-  )}
-  {heroImage && !isAbsoluteUrl && images[getImageKey(heroImage)] && (
-    <div class="full-bleed mb-8 overflow-hidden">
-      <Image 
-        src={images[getImageKey(heroImage)]!.default} 
-        alt={title} 
-        width={1920} 
-        height={400} 
-        data-pagefind-meta="image[src]"
-        class="w-full h-auto max-h-[400px] object-cover"
-        transition:name={`post-hero-${id}`}
-      />
-    </div>
-  )}
+<BaseLayout
+  title={title}
+  description={description}
+  image={heroImage}
+  ogType="article"
+  flushTop={!!heroImage}
+>
+  {
+    heroImage && isAbsoluteUrl && (
+      <div class="full-bleed mb-8 overflow-hidden">
+        <img
+          src={heroImage}
+          alt={title}
+          width={1920}
+          height={400}
+          data-pagefind-meta="image[src]"
+          class="w-full h-auto max-h-[400px] object-cover"
+          transition:name={`post-hero-${id}`}
+        />
+      </div>
+    )
+  }
+  {
+    heroImage && !isAbsoluteUrl && images[getImageKey(heroImage)] && (
+      <div class="full-bleed mb-8 overflow-hidden">
+        <Image
+          src={images[getImageKey(heroImage)]!.default}
+          alt={title}
+          width={1920}
+          height={400}
+          data-pagefind-meta="image[src]"
+          class="w-full h-auto max-h-[400px] object-cover"
+          transition:name={`post-hero-${id}`}
+        />
+      </div>
+    )
+  }
   <article class="max-w-4xl mx-auto" transition:animate="slide">
-    
-    {seriesInfo && (
-      <SeriesTopNav
-        name={seriesInfo.name}
-        current={seriesInfo.current}
-        total={seriesInfo.total}
-        prev={seriesInfo.prev}
-        next={seriesInfo.next}
-      />
-    )}
+    {
+      seriesInfo && (
+        <SeriesTopNav
+          name={seriesInfo.name}
+          current={seriesInfo.current}
+          total={seriesInfo.total}
+          prev={seriesInfo.prev}
+          next={seriesInfo.next}
+        />
+      )
+    }
 
     <header class="mb-10 text-center md:text-left">
-      <h1 class="text-4xl md:text-5xl text-[var(--color-text)] mb-4 leading-tight" transition:name={`post-title-${id}`}>
+      <h1
+        class="text-4xl md:text-5xl text-[var(--color-text)] mb-4 leading-tight"
+        transition:name={`post-title-${id}`}
+      >
         {title}
       </h1>
-      
-      <div class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[var(--color-text-muted)] text-sm mb-6">
+
+      <div
+        class="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-[var(--color-text-muted)] text-sm mb-6"
+      >
         <time datetime={pubDate.toISOString()}>
-          {pubDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}
+          {
+            pubDate.toLocaleDateString('de-CH', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+          }
         </time>
-        
-        {updatedDate && (
-          <>
-            <span>&bull;</span>
-            <span class="italic">
-              Aktualisiert: <time datetime={updatedDate.toISOString()}>{updatedDate.toLocaleDateString('de-CH', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
-            </span>
-          </>
-        )}
-        
+
+        {
+          updatedDate && (
+            <>
+              <span>&bull;</span>
+              <span class="italic">
+                Aktualisiert:{' '}
+                <time datetime={updatedDate.toISOString()}>
+                  {updatedDate.toLocaleDateString('de-CH', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </span>
+            </>
+          )
+        }
+
         <span>&bull;</span>
         <span>{readingTime} Min. Lesezeit</span>
       </div>
 
-      {seriesInfo && (
-        <SeriesBadge name={seriesInfo.name} current={seriesInfo.current} total={seriesInfo.total} />
-      )}
-      
-      {tags && tags.length > 0 && (
-        <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-          {tags.map((tag) => (
-            <a 
-              href={`/tags/${tag}/`}
-              data-pagefind-filter="tag"
-              class="text-sm font-medium px-3 py-1 bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] rounded-[var(--radius-sm)] transition-colors"
-            >
-              #{tag}
-            </a>
-          ))}
-        </div>
-      )}
+      {
+        seriesInfo && (
+          <SeriesBadge
+            name={seriesInfo.name}
+            current={seriesInfo.current}
+            total={seriesInfo.total}
+          />
+        )
+      }
+
+      {
+        tags && tags.length > 0 && (
+          <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+            {tags.map((tag) => (
+              <a
+                href={`/tags/${tag}/`}
+                data-pagefind-filter="tag"
+                class="text-sm font-medium px-3 py-1 bg-[var(--color-bg-subtle)] text-[var(--color-accent)] hover:bg-[var(--color-accent-subtle)] rounded-[var(--radius-sm)] transition-colors"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        )
+      }
     </header>
-    
-    <div class="prose dark:prose-invert max-w-none prose-a:text-[var(--color-accent)] hover:prose-a:text-[var(--color-accent-hover)] prose-img:rounded-[var(--radius-md)] prose-headings:text-[var(--color-text)]">
+
+    <div
+      class="prose dark:prose-invert max-w-none prose-a:text-[var(--color-accent)] hover:prose-a:text-[var(--color-accent-hover)] prose-img:rounded-[var(--radius-md)] prose-headings:text-[var(--color-text)]"
+    >
       <slot />
     </div>
 
-    <ShareButtons title={title} url={new URL(`/blog/${id}/`, Astro.site).href} />
+    <ShareButtons
+      title={title}
+      url={new URL(`/blog/${id}/`, Astro.site).href}
+    />
 
-    {seriesInfo && (
-      <SeriesNav
-        name={seriesInfo.name}
-        current={seriesInfo.current}
-        total={seriesInfo.total}
-        prev={seriesInfo.prev}
-        next={seriesInfo.next}
-      />
-    )}
+    {
+      seriesInfo && (
+        <SeriesNav
+          name={seriesInfo.name}
+          current={seriesInfo.current}
+          total={seriesInfo.total}
+          prev={seriesInfo.prev}
+          next={seriesInfo.next}
+        />
+      )
+    }
   </article>
 </BaseLayout>

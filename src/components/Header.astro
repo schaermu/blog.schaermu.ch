@@ -5,19 +5,31 @@ import Search from './Search.astro';
 const headerAttrs = Astro.props;
 ---
 
-<header {...headerAttrs} class="w-full border-b border-border bg-surface sticky top-0 z-50">
+<header
+  {...headerAttrs}
+  class="w-full border-b border-border bg-surface sticky top-0 z-50"
+>
   <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
     <!-- Logo -->
-    <a href="/" class="text-xl font-bold text-text hover:text-accent transition-colors no-underline">
+    <a
+      href="/"
+      class="text-xl font-bold text-text hover:text-accent transition-colors no-underline"
+    >
       <span class="text-accent">blog</span>.schaermu.ch
     </a>
 
     <!-- Desktop group: visible md+, hidden on mobile -->
     <div class="hidden md:flex items-center gap-6">
       <nav class="flex items-center gap-4 text-text-muted font-medium">
-        <a href="/" class="hover:text-text transition-colors no-underline">Blog</a>
-        <a href="/tags/" class="hover:text-text transition-colors no-underline">Tags</a>
-        <a href="/about/" class="hover:text-text transition-colors no-underline">Über mich</a>
+        <a href="/" class="hover:text-text transition-colors no-underline"
+          >Blog</a
+        >
+        <a href="/tags/" class="hover:text-text transition-colors no-underline"
+          >Tags</a
+        >
+        <a href="/about/" class="hover:text-text transition-colors no-underline"
+          >Über mich</a
+        >
       </nav>
       {!import.meta.env.DEV && <Search />}
     </div>
@@ -34,12 +46,30 @@ const headerAttrs = Astro.props;
         aria-controls="mobile-menu"
         aria-label="Navigationsmenü öffnen"
       >
-        <svg class="icon-hamburger w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          class="icon-hamburger w-6 h-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M4 6h16"></path>
           <path d="M4 12h16"></path>
           <path d="M4 18h16"></path>
         </svg>
-        <svg class="icon-close w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg
+          class="icon-close w-6 h-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
           <path d="M18 6 6 18"></path>
           <path d="m6 6 12 12"></path>
         </svg>
@@ -52,7 +82,8 @@ const headerAttrs = Astro.props;
     id="mobile-menu-backdrop"
     class="md:hidden fixed inset-0 top-16 z-40 mobile-menu-backdrop"
     aria-hidden="true"
-  ></div>
+  >
+  </div>
 
   <!-- Mobile menu panel -->
   <div
@@ -63,29 +94,52 @@ const headerAttrs = Astro.props;
   >
     <div class="max-w-4xl mx-auto px-4 py-4">
       <nav class="flex flex-col gap-1 text-text-muted font-medium">
-        <a href="/" class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline">Blog</a>
-        <a href="/tags/" class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline">Tags</a>
-        <a href="/about/" class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline">Über mich</a>
+        <a
+          href="/"
+          class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline"
+          >Blog</a
+        >
+        <a
+          href="/tags/"
+          class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline"
+          >Tags</a
+        >
+        <a
+          href="/about/"
+          class="py-3 px-2 rounded-md hover:bg-bg-subtle hover:text-text transition-colors no-underline"
+          >Über mich</a
+        >
       </nav>
-      {!import.meta.env.DEV && (
-        <div class="mt-3 pt-3 border-t border-border">
-          <button
-            id="mobile-search-btn"
-            class="w-full flex items-center gap-3 py-3 px-2 rounded-md text-text-muted hover:bg-bg-subtle hover:text-text transition-colors"
-          >
-            <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </svg>
-            <span>Suche</span>
-          </button>
-        </div>
-      )}
+      {
+        !import.meta.env.DEV && (
+          <div class="mt-3 pt-3 border-t border-border">
+            <button
+              id="mobile-search-btn"
+              class="w-full flex items-center gap-3 py-3 px-2 rounded-md text-text-muted hover:bg-bg-subtle hover:text-text transition-colors"
+            >
+              <svg
+                class="w-5 h-5"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <span>Suche</span>
+            </button>
+          </div>
+        )
+      }
     </div>
   </div>
 
   <!-- Pagefind modal: outside desktop group so it renders on all viewports -->
-  {!import.meta.env.DEV && <pagefind-modal></pagefind-modal>}
+  {!import.meta.env.DEV && <pagefind-modal />}
 </header>
 
 <style>
@@ -96,10 +150,10 @@ const headerAttrs = Astro.props;
   #mobile-menu-btn .icon-close {
     display: none;
   }
-  #mobile-menu-btn[aria-expanded="true"] .icon-hamburger {
+  #mobile-menu-btn[aria-expanded='true'] .icon-hamburger {
     display: none;
   }
-  #mobile-menu-btn[aria-expanded="true"] .icon-close {
+  #mobile-menu-btn[aria-expanded='true'] .icon-close {
     display: block;
   }
 
@@ -108,12 +162,15 @@ const headerAttrs = Astro.props;
     max-height: 0;
     opacity: 0;
     transform: translateY(-0.5rem);
-    transition: max-height 200ms ease, opacity 200ms ease, transform 200ms ease;
+    transition:
+      max-height 200ms ease,
+      opacity 200ms ease,
+      transform 200ms ease;
     pointer-events: none;
     overflow: hidden;
   }
 
-  .mobile-menu-panel[data-open="true"] {
+  .mobile-menu-panel[data-open='true'] {
     max-height: 24rem;
     opacity: 1;
     transform: translateY(0);
@@ -128,61 +185,85 @@ const headerAttrs = Astro.props;
     transition: opacity 200ms ease;
   }
 
-  .mobile-menu-backdrop[data-open="true"] {
+  .mobile-menu-backdrop[data-open='true'] {
     opacity: 1;
     pointer-events: auto;
   }
 </style>
 
 <script>
+  type HTMLButtonElementWithDataset = HTMLButtonElement & {
+    dataset: DOMStringMap & { listenerAttached?: string };
+  };
+
   function setupMobileMenu() {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    const backdrop = document.getElementById('mobile-menu-backdrop');
+    const btn = document.getElementById(
+      'mobile-menu-btn',
+    ) as HTMLButtonElementWithDataset | null;
+    const menu = document.getElementById(
+      'mobile-menu',
+    ) as HTMLDivElement | null;
+    const backdrop = document.getElementById(
+      'mobile-menu-backdrop',
+    ) as HTMLDivElement | null;
     if (!btn || !menu || !backdrop) return;
 
-    if (btn.dataset.listenerAttached === 'true') return;
-    btn.dataset.listenerAttached = 'true';
+    const menuButton = btn;
+    const menuPanel = menu;
+    const menuBackdrop = backdrop;
+
+    if (menuButton.dataset.listenerAttached === 'true') return;
+    menuButton.dataset.listenerAttached = 'true';
 
     function setOpen(open: boolean) {
-      btn.setAttribute('aria-expanded', String(open));
-      btn.setAttribute('aria-label', open ? 'Navigationsmenü schliessen' : 'Navigationsmenü öffnen');
-      menu.setAttribute('data-open', String(open));
-      menu.setAttribute('aria-hidden', String(!open));
-      backdrop.setAttribute('data-open', String(open));
+      menuButton.setAttribute('aria-expanded', String(open));
+      menuButton.setAttribute(
+        'aria-label',
+        open ? 'Navigationsmenü schliessen' : 'Navigationsmenü öffnen',
+      );
+      menuPanel.setAttribute('data-open', String(open));
+      menuPanel.setAttribute('aria-hidden', String(!open));
+      menuBackdrop.setAttribute('data-open', String(open));
     }
 
     function isOpen(): boolean {
-      return btn.getAttribute('aria-expanded') === 'true';
+      return menuButton.getAttribute('aria-expanded') === 'true';
     }
 
-    btn.addEventListener('click', (e: Event) => {
+    menuButton.addEventListener('click', (e: Event) => {
       e.stopPropagation();
       setOpen(!isOpen());
     });
 
-    menu.querySelectorAll('a').forEach((link) => {
+    menuPanel.querySelectorAll('a').forEach((link) => {
       link.addEventListener('click', () => setOpen(false));
     });
 
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen()) {
         setOpen(false);
-        btn.focus();
+        menuButton.focus();
       }
     });
 
-    backdrop.addEventListener('click', () => {
+    menuBackdrop.addEventListener('click', () => {
       setOpen(false);
     });
 
     document.addEventListener('click', (e: Event) => {
-      if (isOpen() && !menu.contains(e.target as Node) && !btn.contains(e.target as Node) && !backdrop.contains(e.target as Node)) {
+      if (
+        isOpen() &&
+        !menuPanel.contains(e.target as Node) &&
+        !menuButton.contains(e.target as Node) &&
+        !menuBackdrop.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     });
 
-    const mobileSearchBtn = document.getElementById('mobile-search-btn');
+    const mobileSearchBtn = document.getElementById(
+      'mobile-search-btn',
+    ) as HTMLButtonElementWithDataset | null;
     if (mobileSearchBtn && !mobileSearchBtn.dataset.listenerAttached) {
       mobileSearchBtn.dataset.listenerAttached = 'true';
       mobileSearchBtn.addEventListener('click', () => {
@@ -200,7 +281,7 @@ const headerAttrs = Astro.props;
 </script>
 
 <script is:inline>
-  document.addEventListener('astro:before-swap', function() {
+  document.addEventListener('astro:before-swap', function () {
     var btn = document.getElementById('mobile-menu-btn');
     var menu = document.getElementById('mobile-menu');
     var backdrop = document.getElementById('mobile-menu-backdrop');

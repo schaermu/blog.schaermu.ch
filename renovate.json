@@ -1,0 +1,60 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "Pin all GitHub Actions to immutable digests",
+      "matchManagers": ["github-actions"],
+      "pinDigests": true,
+      "groupName": "GitHub Actions"
+    },
+    {
+      "description": "Automerge all non-major dependency updates",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true,
+      "platformAutomerge": true
+    },
+    {
+      "description": "Keep major upgrades manual",
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    },
+    {
+      "groupName": "Astro ecosystem",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["astro", "@astrojs/rss", "@astrojs/sitemap"]
+    },
+    {
+      "groupName": "Tailwind and styling",
+      "matchManagers": ["npm"],
+      "matchPackageNames": [
+        "tailwindcss",
+        "@tailwindcss/typography",
+        "@tailwindcss/vite",
+        "@fontsource/dm-serif-display"
+      ]
+    },
+    {
+      "groupName": "Search tooling",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["pagefind", "@pagefind/component-ui"]
+    },
+    {
+      "groupName": "E2E testing",
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@playwright/test"]
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "platformAutomerge": true,
+    "schedule": ["before 4am on monday"]
+  }
+}

@@ -1,7 +1,10 @@
 [tools]
+actionlint = "latest"
 node = "24"
 oxlint = "latest"
 pnpm = "latest"
+shellcheck = "latest"
+"npm:markdownlint-cli2" = "latest"
 
 [env]
 _.file = '.env'

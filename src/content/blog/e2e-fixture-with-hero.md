@@ -1,12 +1,12 @@
 ---
-title: "E2E Fixture Post With Hero"
-description: "A test fixture post used for E2E testing. This post includes a hero image and is part of a series."
+title: 'E2E Fixture Post With Hero'
+description: 'A test fixture post used for E2E testing. This post includes a hero image and is part of a series.'
 pubDate: 2020-01-15
-heroImage: "../../assets/blog/hero-e2e-fixture.svg"
-tags: ["e2e-testing", "e2e-astro", "e2e-web-dev"]
-series: "e2e-test-series"
+heroImage: '../../assets/blog/hero-e2e-fixture.svg'
+tags: ['e2e-testing', 'e2e-astro', 'e2e-web-dev']
+series: 'e2e-test-series'
 seriesOrder: 1
-seriesTitle: "E2E Test Series"
+seriesTitle: 'E2E Test Series'
 testFixture: true
 ---
 
@@ -18,7 +18,7 @@ The post also helps verify that content-independent navigation behaves the same 
 
 ```ts
 const fixture = {
-  kind: "e2e",
+  kind: 'e2e',
   hero: true,
 };
 ```

@@ -1,9 +1,9 @@
 ---
-title: "E2E Fixture Absolute Hero"
-description: "A test fixture post used for E2E testing absolute URL hero images from external storage."
+title: 'E2E Fixture Absolute Hero'
+description: 'A test fixture post used for E2E testing absolute URL hero images from external storage.'
 pubDate: 2020-01-10
-heroImage: "https://storage.schaermu.ch/blog/test-hero.png"
-tags: ["e2e-testing"]
+heroImage: 'https://storage.schaermu.ch/blog/test-hero.png'
+tags: ['e2e-testing']
 testFixture: true
 ---
 
