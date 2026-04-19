@@ -10,11 +10,14 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   image: {
-    service: {
-      entrypoint: 'astro/assets/services/sharp',
-      config: {
-        limitInputPixels: false,
+    remotePatterns: [
+      {
+        hostname: 'storage.schaermu.ch',
+        protocol: 'https',
       },
+    ],
+    service: {
+      entrypoint: 'astro/assets/services/noop',
     },
   },
 });
