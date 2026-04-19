@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "astro build && pagefind --site dist",
     "preview": "pnpm build && astro preview",
+    "prepare": "lefthook install",
     "check:code": "oxlint . --deny-warnings && prettier --check .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@playwright/test": "^1.59.1",
+    "lefthook": "^2.1.6",
     "pagefind": "^1.5.2",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
