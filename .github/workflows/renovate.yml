@@ -24,4 +24,4 @@ jobs:
           configurationFile: renovate.json
           token: '${{ steps.get_token.outputs.token }}'
         env:
-            RENOVATE_PLATFORM_COMMIT: 'true'
+          RENOVATE_PLATFORM_COMMIT: 'true'
