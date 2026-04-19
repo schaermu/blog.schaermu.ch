@@ -6,7 +6,9 @@
     ":semanticCommits",
     ":semanticCommitTypeAll(chore)"
   ],
+  "forkProcessing": "disabled",
   "labels": ["dependencies"],
+  "minimumReleaseAge": "3 days",
   "packageRules": [
     {
       "description": "Pin all GitHub Actions to immutable digests",
