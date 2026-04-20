@@ -1,4 +1,6 @@
 ---
+import { getClouflareUrl } from '../helpers/cloudflare';
+
 /**
  * HeroImage.astro
  *
@@ -27,23 +29,11 @@ const {
   sizes: customSizes,
 } = Astro.props;
 
-const CF_BASE = 'https://blog.schaermu.ch/cdn-cgi/image';
-
-/**
- * Build a Cloudflare transformation URL.
- * format=auto lets CF serve AVIF to modern browsers, WebP to older ones,
- * JPEG as fallback — based on the Accept header. No manual <source> tags needed.
- */
-function cfUrl(source: string, width: number, quality = 80): string {
-  const params = `width=${width},quality=${quality},format=auto,fit=cover`;
-  return `${CF_BASE}/${params}/${source}`;
-}
-
 // Breakpoints: mobile → tablet → desktop → wide
 // Adjust these to match your blog's max content width
 const widths = [480, 768, 1024, 1440];
 
-const srcset = widths.map((w) => `${cfUrl(src, w)} ${w}w`).join(', ');
+const srcset = widths.map((w) => `${getClouflareUrl(src, w)} ${w}w`).join(', ');
 
 // sizes: matches a typical blog layout with a max-width container
 const sizes =
@@ -54,7 +44,7 @@ const sizes =
 
 // The default src is the largest width — used as fallback for browsers
 // that don't support srcset (essentially none in 2025, but still correct)
-const defaultSrc = cfUrl(src, 1440);
+const defaultSrc = getClouflareUrl(src, 1440);
 ---
 
 <img
