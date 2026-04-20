@@ -1,5 +1,12 @@
 ---
+import { getClouflareUrl } from '../helpers/cloudflare';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const portraitImg = getClouflareUrl(
+  'https://storage.schaermu.ch/schaermu_quad.jpg',
+  360,
+);
+const showE2EFallback = process.env.INCLUDE_TEST_FIXTURES === 'true';
 ---
 
 <BaseLayout title="Über mich" description="Über schaermu.ch und den Autor">
@@ -7,34 +14,42 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <h1>Über mich</h1>
     <div class="flex flex-col md:flex-row gap-8 items-start">
       <div
-        class="flex-shrink-0 w-32 h-32 rounded-xl bg-accent/10 dark:bg-accent-subtle border border-border flex items-center justify-center text-4xl font-bold text-accent shadow-sm"
+        class="shrink-0 overflow-hidden w-32 h-32 rounded-xl bg-accent/10 dark:bg-accent-subtle border border-border flex items-center justify-center text-4xl font-bold text-accent shadow-sm"
       >
-        SC
+        {
+          showE2EFallback ? (
+            <span aria-label="Author initials">SC</span>
+          ) : (
+            <img src={portraitImg} alt="Schärmu" />
+          )
+        }
       </div>
       <div class="flex-1">
-        <p>
-          Hallo! Ich bin ein leidenschaftlicher Software-Ingenieur und
+        <p class="mt-0">
+          Hallo! Ich bin ein leidenschaftlicher Software-Engineer und
           Web-Entwickler mit einem ausgeprägten Interesse an modernen
-          Web-Technologien. Willkommen auf <strong>schaermu.ch</strong>, meinem
-          digitalen Garten, in dem ich meine Gedanken, Erkenntnisse und
-          Experimente in der Software-Entwicklung teile.
+          Web-Technologien. Willkommen auf <strong
+            ><span class="text-accent">blog</span>.schaermu.ch</strong
+          >, meinem digitalen Garten, in dem ich meine Gedanken, Erkenntnisse
+          und Experimente in der Software-Entwicklung teile.
         </p>
         <p>
           Im Laufe meiner Karriere habe ich an verschiedenen Teilen des Stacks
           gearbeitet – von pixelgenauen User Interfaces bis hin zu robusten
-          Backend-Systemen. Aktuell interessiere ich mich besonders für
-          Static-Site-Generatoren, Edge Computing und die perfekte Balance
-          zwischen Performance und Developer Experience.
+          Backend-Systemen. Aktuell beschäftige ich mich jedoch primär mit den
+          Auswirkungen von generative AI auf die Software-Enwtwicklung und
+          versuche im Rahmen meines Jobs eine gesunde Adoption dieser neuen
+          Tools zu ermöglichen.
         </p>
         <p>
-          Wenn ich nicht gerade Code schreibe, lese ich über Tech-Trends,
-          experimentiere mit neuen Frameworks wie Astro und Tailwind CSS oder
-          erkunde die Natur. Dieser Blog dient sowohl als öffentliches Notizbuch
-          meiner technischen Reise als auch als Möglichkeit, mich mit anderen
-          Entwicklern in der Community zu vernetzen.
+          Wenn ich nicht gerade Software baue, bin ich entweder am joggen,
+          lesen, kochen oder gamen. Nach Möglichkeit draussen. Dieser Blog dient
+          sowohl als öffentliches Notizbuch meiner technischen Reise als auch
+          als Möglichkeit, mich mit anderen Engineers & Leaders in der Community
+          zu vernetzen.
         </p>
         <p>
-          Danke fürs Vorbeischauen! Schau dich gerne um – ich hoffe, du findest
+          Danke fürs Vorbeischauen! Schau dich gerne um - ich hoffe, du findest
           etwas Nützliches oder Inspirierendes.
         </p>
       </div>
