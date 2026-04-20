@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { ClientRouter } from 'astro:transitions';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,13 +9,22 @@ import '@fontsource/dm-serif-display/400.css';
 interface Props {
   title: string;
   description: string;
-  image?: string;
+  image?: string | ImageMetadata;
   ogType?: string;
   flushTop?: boolean;
 }
 
 const { title, description, image, ogType, flushTop } = Astro.props;
 const isUmamiEnabled = import.meta.env.PUBLIC_ENABLE_UMAMI === 'true';
+
+function resolveAbsoluteImageUrl(imageSource?: string | ImageMetadata): string {
+  const source =
+    typeof imageSource === 'string'
+      ? imageSource
+      : (imageSource?.src ?? '/og-default.png');
+
+  return new URL(source, Astro.site).href;
+}
 ---
 
 <!doctype html>
@@ -81,22 +91,12 @@ const isUmamiEnabled = import.meta.env.PUBLIC_ENABLE_UMAMI === 'true';
     <meta property="og:description" content={description} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:site_name" content="blog.schaermu.ch" />
-    <meta
-      property="og:image"
-      content={image
-        ? new URL(image, Astro.site).href
-        : new URL('/og-default.png', Astro.site).href}
-    />
+    <meta property="og:image" content={resolveAbsoluteImageUrl(image)} />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta
-      name="twitter:image"
-      content={image
-        ? new URL(image, Astro.site).href
-        : new URL('/og-default.png', Astro.site).href}
-    />
+    <meta name="twitter:image" content={resolveAbsoluteImageUrl(image)} />
 
     <ClientRouter />
 
