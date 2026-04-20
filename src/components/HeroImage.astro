@@ -2,14 +2,14 @@
 /**
  * HeroImage.astro
  *
- * Renders a responsive hero image via Cloudflare Image Transformations.
- * Source images are pulled from storage.schaermu.ch (R2).
- * Transforms are cached at the CF edge — only the first request per
- * size/format combination hits R2.
+ * Renders remote hero images via Cloudflare Image Transformations while
+ * letting local Astro assets render directly.
  */
 
+import type { ImageMetadata } from 'astro';
+
 interface Props {
-  src: string;
+  src: string | ImageMetadata;
   alt: string;
   /** Whether this is an above-the-fold image (sets fetchpriority=high + eager loading) */
   priority?: boolean;
@@ -28,6 +28,13 @@ const {
 } = Astro.props;
 
 const CF_BASE = 'https://blog.schaermu.ch/cdn-cgi/image';
+const FALLBACK_WIDTH = 1440;
+const FALLBACK_HEIGHT = 810;
+const widths = [480, 768, 1024, 1440];
+
+function isRemoteUrl(value: string): boolean {
+  return /^https?:\/\//.test(value);
+}
 
 /**
  * Build a Cloudflare transformation URL.
@@ -39,11 +46,11 @@ function cfUrl(source: string, width: number, quality = 80): string {
   return `${CF_BASE}/${params}/${source}`;
 }
 
-// Breakpoints: mobile → tablet → desktop → wide
-// Adjust these to match your blog's max content width
-const widths = [480, 768, 1024, 1440];
+const isRemoteSource = typeof src === 'string' && isRemoteUrl(src);
 
-const srcset = widths.map((w) => `${cfUrl(src, w)} ${w}w`).join(', ');
+const srcset = isRemoteSource
+  ? widths.map((w) => `${cfUrl(src, w)} ${w}w`).join(', ')
+  : undefined;
 
 // sizes: matches a typical blog layout with a max-width container
 const sizes =
@@ -52,18 +59,23 @@ const sizes =
     ', ',
   );
 
-// The default src is the largest width — used as fallback for browsers
-// that don't support srcset (essentially none in 2025, but still correct)
-const defaultSrc = cfUrl(src, 1440);
+const defaultSrc = isRemoteSource
+  ? cfUrl(src, FALLBACK_WIDTH)
+  : typeof src === 'string'
+    ? src
+    : src.src;
+
+const width = typeof src === 'string' ? FALLBACK_WIDTH : src.width;
+const height = typeof src === 'string' ? FALLBACK_HEIGHT : src.height;
 ---
 
 <img
   src={defaultSrc}
   srcset={srcset}
-  sizes={sizes}
+  sizes={srcset ? sizes : undefined}
   alt={alt}
-  width="1440"
-  height="810"
+  width={width}
+  height={height}
   loading={priority ? 'eager' : 'lazy'}
   decoding={priority ? 'sync' : 'async'}
   fetchpriority={priority ? 'high' : 'auto'}
