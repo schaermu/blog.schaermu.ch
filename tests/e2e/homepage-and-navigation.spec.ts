@@ -115,5 +115,9 @@ test.describe('homepage and navigation', () => {
     await expect(
       page.getByRole('heading', { level: 1, name: /über mich/i }),
     ).toBeVisible();
+    await expect(
+      page.locator('main').getByText('SC', { exact: true }),
+    ).toBeVisible();
+    await expect(page.locator('main img')).toHaveCount(0);
   });
 });

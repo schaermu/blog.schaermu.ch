@@ -6,6 +6,7 @@ const portraitImg = getClouflareUrl(
   'https://storage.schaermu.ch/schaermu_quad.jpg',
   360,
 );
+const showE2EFallback = process.env.INCLUDE_TEST_FIXTURES === 'true';
 ---
 
 <BaseLayout title="Über mich" description="Über schaermu.ch und den Autor">
@@ -15,7 +16,13 @@ const portraitImg = getClouflareUrl(
       <div
         class="shrink-0 overflow-hidden w-32 h-32 rounded-xl bg-accent/10 dark:bg-accent-subtle border border-border flex items-center justify-center text-4xl font-bold text-accent shadow-sm"
       >
-        <img src={portraitImg} />
+        {
+          showE2EFallback ? (
+            <span aria-label="Author initials">SC</span>
+          ) : (
+            <img src={portraitImg} alt="Schärmu" />
+          )
+        }
       </div>
       <div class="flex-1">
         <p class="mt-0">
