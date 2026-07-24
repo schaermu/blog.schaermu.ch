@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4
+        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
 
       - name: Run actionlint
         run: mise exec -- pnpm run lint:actions
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4
+        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
 
       - name: Run markdownlint
         run: mise exec -- pnpm run lint:markdown
@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4
+        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
 
       - name: Install dependencies
         run: mise exec -- pnpm install --frozen-lockfile
@@ -69,7 +69,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4
+        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
 
       - name: Install dependencies
         run: mise exec -- pnpm install --frozen-lockfile
@@ -86,7 +86,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4
+        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
 
       - name: Install dependencies
         run: mise exec -- pnpm install --frozen-lockfile
