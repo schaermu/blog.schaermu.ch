@@ -33,7 +33,7 @@ jobs:
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
       - name: Set up mise
-        uses: jdx/mise-action@f10502fc09dadecfefb962fff68ce77213930204 # v4
+        uses: jdx/mise-action@9e7f7633ff6f6d6048a9418a68d48f288f50eb14 # v4
 
       - name: Install dependencies
         run: mise exec -- pnpm install --frozen-lockfile
