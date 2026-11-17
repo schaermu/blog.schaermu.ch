@@ -1,6 +1,6 @@
 [tools]
 actionlint = "latest"
-node = "24"
+node = "26"
 oxlint = "latest"
 pnpm = "latest"
 shellcheck = "latest"
